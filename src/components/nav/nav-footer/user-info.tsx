@@ -1,5 +1,5 @@
 import { UserIcon } from 'lucide-react';
-import { Image } from '../../image';
+import { Image } from '@components/image';
 
 export function UserInfo() {
 	return (

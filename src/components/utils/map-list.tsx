@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 interface MapListProps<T> {
 	list: T[];
-	callback: (item: T) => ReactNode;
+	callback: (item: T, index: number) => ReactNode;
 }
 
 /**

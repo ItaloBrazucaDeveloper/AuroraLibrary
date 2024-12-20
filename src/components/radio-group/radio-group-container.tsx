@@ -1,30 +1,23 @@
-import { ComponentProps, useState } from 'react';
-import { RadioGroupContext, RadioGroupControlValue } from './radio-group-context';
+import { ComponentProps } from 'react';
+import {
+	RadioGroupContext,
+	RadioGroupControlValue,
+	getProviders,
+} from './radio-group-context';
 
 type RadioGroupContainerProps = ComponentProps<'ul'> & {
-	defaultValue?: string;
+	defaultSelected?: string;
 	name: string;
 	onChangeSelected?: (value: RadioGroupControlValue) => void;
 };
 
 export function RadioGroupContainer({
-	name,
-	defaultValue = '',
+	name = '',
+	defaultSelected = '',
 	onChangeSelected,
 	...props
 }: RadioGroupContainerProps) {
-	const [selected, setSelected] = useState<RadioGroupControlValue>(defaultValue);
-
-	function handleChange(value: RadioGroupControlValue) {
-		setSelected(value);
-		onChangeSelected?.(selected);
-	}
-
-	const providers = {
-		name,
-		defaultValue,
-		handleChange,
-	};
+	const providers = getProviders(name, defaultSelected, onChangeSelected);
 
 	return (
 		<RadioGroupContext.Provider value={providers}>

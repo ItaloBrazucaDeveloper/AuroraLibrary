@@ -1,4 +1,5 @@
-import { UserPlusIcon } from 'lucide-react';
+import { Button } from '@components/button';
+import { FilterIcon, Search, UserPlusIcon } from 'lucide-react';
 import { DataTable } from '../components/data-table';
 
 export default function Clients() {
@@ -9,18 +10,30 @@ export default function Clients() {
 					<span className="text-zinc-500 font-normal">Clientes \</span> Lista
 				</h1>
 			</header>
-			<div className="flex justify-between p-2">
-				<button className="outline outline-1 outline-zinc-300 px-4 py-1 rounded-lg">
+			<div className="flex justify-between mx-2">
+				<Button variant="outlined" icon={FilterIcon} className="rounded-md">
 					Filtros
-				</button>
-				<div className='flex'>
-					<input type="text" placeholder="Buscar por cliente..." />
-					<button className="flex outline outline-1 outline-zinc-300 px-4 py-1 rounded-lg">
-						<UserPlusIcon /> cliente
-					</button>
+				</Button>
+				<div className="flex gap-4">
+					<div className="flex items-center gap-2">
+						<Button
+							title="Buscar"
+							icon={Search}
+							variant="outlined"
+							className="h-full px-2 rounded-full"
+						/>
+						<input
+							type="text"
+							placeholder="Buscar por cliente..."
+							className="outline outline-1 outline-zinc-200 border-0 rounded-full px-4 py-1 focus:outline-2 focus:outline-zinc-300 w-64"
+						/>
+					</div>
+					<Button icon={UserPlusIcon} variant="dark" className="px-4">
+						Novo cliente
+					</Button>
 				</div>
 			</div>
-			<hr className='mx-2' />
+			<hr className="mx-2" />
 			<DataTable
 				hasEnumarate
 				headers={['Nome', 'Email', 'Telefone', 'CPF']}

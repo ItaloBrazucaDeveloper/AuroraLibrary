@@ -28,33 +28,36 @@ export function DataTable({
 	return (
 		<DataTableContainer>
 			<DataTableHeader>
-				<DataTableRow>
-					<Show condition={hasEnumarate}>
-						<DataTableField asHeader className="p-1 px-3">
-							#
+				<Show condition={hasEnumarate}>
+					<DataTableField asHeader className="p-1 px-3">
+						#
+					</DataTableField>
+				</Show>
+				<MapList
+					list={headers}
+					callback={(header) => (
+						<DataTableField key={header} asHeader className="p-1 px-3">
+							{header}
 						</DataTableField>
-					</Show>
-					<MapList
-						list={headers}
-						callback={(header) => (
-							<DataTableField key={header} asHeader className="p-1 px-3">
-								{header}
-							</DataTableField>
-						)}
-					/>
-				</DataTableRow>
+					)}
+				/>
 			</DataTableHeader>
 			<DataTableBody>
 				<Show condition={data.length > 0} fallback={fallback}>
 					<MapList
 						list={data}
 						callback={(row, index) => (
-							<DataTableRow key={index}>
+							<DataTableRow key={index} className="rounded-xl">
 								<Show condition={hasEnumarate}>
-									<DataTableField>{index + 1}</DataTableField>
+									<DataTableField className="first:rounded-l-xl last:rounded-r-xl">
+										{index + 1}
+									</DataTableField>
 								</Show>
 								{Object.values(row).map((field, fieldIndex) => (
-									<DataTableField key={fieldIndex}>
+									<DataTableField
+										key={fieldIndex}
+										className="first:rounded-l-xl last:rounded-r-xl"
+									>
 										{String(field)}
 									</DataTableField>
 								))}

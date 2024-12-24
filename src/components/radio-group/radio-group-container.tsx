@@ -6,8 +6,8 @@ import {
 } from './radio-group-context';
 
 type RadioGroupContainerProps = ComponentProps<'ul'> & {
-	defaultSelected?: string;
 	name: string;
+	defaultSelected?: string;
 	onChangeSelected?: (value: RadioGroupControlValue) => void;
 };
 
@@ -15,13 +15,14 @@ export function RadioGroupContainer({
 	name = '',
 	defaultSelected = '',
 	onChangeSelected,
+	className,
 	...props
 }: RadioGroupContainerProps) {
 	const providers = getProviders(name, defaultSelected, onChangeSelected);
 
 	return (
 		<RadioGroupContext.Provider value={providers}>
-			<ul {...props} className="" />
+			<ul {...props} className={className} />
 		</RadioGroupContext.Provider>
 	);
 }

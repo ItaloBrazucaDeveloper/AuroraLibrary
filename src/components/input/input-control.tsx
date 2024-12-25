@@ -8,6 +8,6 @@ type InputControlProps = ComponentProps<'input'> & {
 
 export const InputControl = forwardRef<HTMLInputElement, InputControlProps>(
 	({ className, icon: Icon, ...props }, ref) => {
-		return <input ref={ref} {...props} />;
+		return (<input ref={ref} {...props} />);
 	},
 );

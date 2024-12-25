@@ -2,7 +2,7 @@ import { LucideProps } from 'lucide-react';
 import { ComponentProps, ComponentType } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-type ButtonProps = ComponentProps<'button'> & {
+export type ButtonProps = ComponentProps<'button'> & {
 	variant?: 'default' | 'dark' | 'outlined';
 	icon?: ComponentType<LucideProps>;
 };

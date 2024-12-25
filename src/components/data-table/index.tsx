@@ -47,7 +47,7 @@ export function DataTable({
 					<MapList
 						list={data}
 						callback={(row, index) => (
-							<DataTableRow key={index} className="rounded-xl">
+							<DataTableRow key={index} className="rounded-xl hover:scale-[1.01]">
 								<Show condition={hasEnumarate}>
 									<DataTableField className="first:rounded-l-xl last:rounded-r-xl">
 										{index + 1}

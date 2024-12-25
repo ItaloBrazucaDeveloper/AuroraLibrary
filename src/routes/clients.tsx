@@ -1,8 +1,22 @@
 import { Button } from '@components/button';
-import { FilterIcon, Search, UserPlusIcon } from 'lucide-react';
+import { Modal } from '@components/modal';
+import { ModalContainer } from '@components/modal/modal-container';
+import { ModalFooter } from '@components/modal/modal-footer';
+import { FilterIcon, PlusIcon, Search, UserPlusIcon } from 'lucide-react';
+import { useRef } from 'react';
 import { DataTable } from '../components/data-table';
 
 export default function Clients() {
+	const modalRef = useRef<HTMLDialogElement>(null);
+
+	function toggleModal() {
+		if (modalRef.current?.open) {
+			modalRef.current?.close();
+		} else {
+			modalRef.current?.showModal();
+		}
+	}
+
 	return (
 		<div className="flex flex-col gap-3 h-full w-full bg-white/85 shadow-md rounded-lg">
 			<header className="p-4 text-xl">
@@ -28,9 +42,72 @@ export default function Clients() {
 							className="outline outline-1 outline-zinc-200 border-0 rounded-full px-4 py-1 focus:outline-2 focus:outline-zinc-300 w-64"
 						/>
 					</div>
-					<Button icon={UserPlusIcon} variant="dark" className="px-4">
+					<Button
+						icon={UserPlusIcon}
+						onClick={toggleModal}
+						variant="dark"
+						className="px-4"
+					>
 						Novo cliente
 					</Button>
+					<ModalContainer ref={modalRef}>
+						<Modal.Header>
+							<h2 className="text-2xl font-semibold text-zinc-800">
+								Novo cliente
+							</h2>
+							<Modal.Close />
+						</Modal.Header>
+						<Modal.Content>
+							<div className="flex flex-col gap-2">
+								<label htmlFor="nome">Nome</label>
+								<input
+									type="text"
+									name="nome"
+									id="nome"
+									placeholder="Nome completo"
+									className="outline outline-1 outline-zinc-200 border-0 rounded-md px-4 py-1 focus:outline-2 focus:outline-zinc-300"
+								/>
+							</div>
+							<div className="flex flex-col gap-2">
+								<label htmlFor="email">Email</label>
+								<input
+									type="email"
+									name="email"
+									id="email"
+									placeholder="Email"
+									className="outline outline-1 outline-zinc-200 border-0 rounded-md px-4 py-1 focus:outline-2 focus:outline-zinc-300"
+								/>
+							</div>
+							<div className="flex flex-col gap-2">
+								<label htmlFor="telefone">Telefone</label>
+								<input
+									type="tel"
+									name="telefone"
+									id="telefone"
+									placeholder="Telefone"
+									className="outline outline-1 outline-zinc-200 border-0 rounded-md px-4 py-1 focus:outline-2 focus:outline-zinc-300"
+								/>
+							</div>
+							<div className="flex flex-col gap-2">
+								<label htmlFor="cpf">CPF</label>
+								<input
+									type="text"
+									name="cpf"
+									id="cpf"
+									placeholder="CPF"
+									className="outline outline-1 outline-zinc-200 border-0 rounded-md px-4 py-1 focus:outline-2 focus:outline-zinc-300"
+								/>
+							</div>
+							<ModalFooter>
+								<Button variant="outlined" className="px-4">
+									Cancelar
+								</Button>
+								<Button className="px-4" variant="dark">
+									Salvar
+								</Button>
+							</ModalFooter>
+						</Modal.Content>
+					</ModalContainer>
 				</div>
 			</div>
 			<hr className="mx-2" />

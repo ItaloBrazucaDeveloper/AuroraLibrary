@@ -6,7 +6,9 @@ import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
 
 export default function Home() {
-	const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+	const [selectedCategory, setSelectedCategory] = useState<string>(
+		tags[0].label,
+	);
 
 	return (
 		<div className="flex flex-col gap-3 h-full w-full bg-white/85 shadow-md rounded-lg">
@@ -18,8 +20,7 @@ export default function Home() {
 			<main className="flex flex-col items-center justify-center gap-10 h-full">
 				<RadioGroup.Container
 					name="book-category"
-					className="flex gap-3"
-					defaultSelected="Todos"
+					className="flex gap-3 gap-y-4 justify-center flex-wrap"
 				>
 					<MapList
 						list={tags}
@@ -31,7 +32,10 @@ export default function Home() {
 								>
 									{label}
 								</RadioGroup.Label>
-								<RadioGroup.Control className="absolute inset-0 hidden" />
+								<RadioGroup.Control
+									className="absolute inset-0 hidden"
+									value={label}
+								/>
 							</RadioGroup.Item>
 						)}
 					/>

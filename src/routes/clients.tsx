@@ -2,7 +2,7 @@ import { Button } from '@components/button';
 import { Modal } from '@components/modal';
 import { ModalContainer } from '@components/modal/modal-container';
 import { ModalFooter } from '@components/modal/modal-footer';
-import { FilterIcon, PlusIcon, Search, UserPlusIcon } from 'lucide-react';
+import { FilterIcon, Search, UserPlusIcon } from 'lucide-react';
 import { useRef } from 'react';
 import { DataTable } from '../components/data-table';
 
@@ -15,6 +15,11 @@ export default function Clients() {
 		} else {
 			modalRef.current?.showModal();
 		}
+	}
+
+	function onActionsClicked(action: 'edit' | 'delete', dataRow: {}) {
+		console.log(action);
+		console.dir(dataRow);
 	}
 
 	return (
@@ -113,7 +118,9 @@ export default function Clients() {
 			<hr className="mx-2" />
 			<DataTable
 				hasEnumarate
-				headers={['Nome', 'Email', 'Telefone', 'CPF']}
+				actions="edit-delete"
+				headers={['Nome', 'Email', 'Telefone', 'CPF', 'Ações']}
+				onActionsClicked={onActionsClicked}
 				data={[
 					{
 						nome: 'João Silva',
@@ -147,6 +154,24 @@ export default function Clients() {
 					},
 				]}
 			/>
+			<Modal.Container>
+				<Modal.Header>
+					<h2 className="text-2xl font-semibold text-zinc-800">
+						Exluir cliente
+					</h2>
+					<Modal.Close />
+				</Modal.Header>
+				<Modal.Content>
+					<Modal.Footer>
+						<Button variant="outlined" className="px-4">
+							Cancelar
+						</Button>
+						<Button className="px-4" variant="dark">
+							Excluir
+						</Button>
+					</Modal.Footer>
+				</Modal.Content>
+			</Modal.Container>
 		</div>
 	);
 }

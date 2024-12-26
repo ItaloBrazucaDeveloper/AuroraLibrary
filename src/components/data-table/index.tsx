@@ -1,5 +1,6 @@
 import { MapList } from '../utils/map-list';
 import { Show } from '../utils/show';
+import { DataTableActions } from './data-table-actions';
 import { DataTableBody } from './data-table-body';
 import { DataTableContainer } from './data-table-container';
 import { DataTableField } from './data-table-field';
@@ -10,14 +11,18 @@ interface DataTableProps {
 	headers: string[];
 	data: {}[];
 	hasEnumarate?: boolean;
+	actions?: 'edit' | 'delete' | 'edit-delete';
+	onActionsClicked: (action: 'edit' | 'delete', dataRow: {}) => void;
 }
 
 export function DataTable({
 	headers,
 	data,
 	hasEnumarate = false,
+	actions = 'edit-delete',
+	onActionsClicked,
 }: DataTableProps) {
-	const fallback = (
+	const Fallback = (
 		<DataTableRow className="text-center">
 			<DataTableField colSpan={headers.length}>
 				Nenhum registro encontrado
@@ -43,11 +48,14 @@ export function DataTable({
 				/>
 			</DataTableHeader>
 			<DataTableBody>
-				<Show condition={data.length > 0} fallback={fallback}>
+				<Show condition={data.length > 0} fallback={Fallback}>
 					<MapList
 						list={data}
 						callback={(row, index) => (
-							<DataTableRow key={index} className="rounded-xl hover:scale-[1.01]">
+							<DataTableRow
+								key={index}
+								className="rounded-xl hover:scale-[1.01]"
+							>
 								<Show condition={hasEnumarate}>
 									<DataTableField className="first:rounded-l-xl last:rounded-r-xl">
 										{index + 1}
@@ -61,6 +69,11 @@ export function DataTable({
 										{String(field)}
 									</DataTableField>
 								))}
+								<DataTableActions
+									dataRow={row}
+									actions={actions}
+									onActionsClicked={onActionsClicked}
+								/>
 							</DataTableRow>
 						)}
 					/>

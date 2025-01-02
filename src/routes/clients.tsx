@@ -1,25 +1,18 @@
 import { Button } from '@components/button';
 import { Modal } from '@components/modal';
-import { ModalContainer } from '@components/modal/modal-container';
-import { ModalFooter } from '@components/modal/modal-footer';
 import { FilterIcon, Search, UserPlusIcon } from 'lucide-react';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { DataTable } from '../components/data-table';
 
 export default function Clients() {
-	const modalRef = useRef<HTMLDialogElement>(null);
-
-	function toggleModal() {
-		if (modalRef.current?.open) {
-			modalRef.current?.close();
-		} else {
-			modalRef.current?.showModal();
-		}
-	}
+	const [wichModalIsOpen, setWichModalIsOpen] = useState<string | null>(null);
+	const [dataRow, setDataRow] = useState({});
 
 	function onActionsClicked(action: 'edit' | 'delete', dataRow: {}) {
-		console.log(action);
-		console.dir(dataRow);
+		setWichModalIsOpen(action);
+		if (dataRow) {
+			setDataRow(dataRow);
+		}
 	}
 
 	return (
@@ -47,22 +40,19 @@ export default function Clients() {
 							className="outline outline-1 outline-zinc-200 border-0 rounded-full px-4 py-1 focus:outline-2 focus:outline-zinc-300 w-64"
 						/>
 					</div>
-					<Button
-						icon={UserPlusIcon}
-						onClick={toggleModal}
-						variant="dark"
-						className="px-4"
-					>
-						Novo cliente
-					</Button>
-					<ModalContainer ref={modalRef}>
-						<Modal.Header>
-							<h2 className="text-2xl font-semibold text-zinc-800">
+					<Modal.Container>
+						<Modal.Trigger>
+							<Button icon={UserPlusIcon} variant="dark" className="px-4">
 								Novo cliente
-							</h2>
-							<Modal.Close />
-						</Modal.Header>
+							</Button>
+						</Modal.Trigger>
 						<Modal.Content>
+							<Modal.Header>
+								<h2 className="text-2xl font-semibold text-zinc-800">
+									Novo cliente
+								</h2>
+								<Modal.Close />
+							</Modal.Header>
 							<div className="flex flex-col gap-2">
 								<label htmlFor="nome">Nome</label>
 								<input
@@ -103,16 +93,16 @@ export default function Clients() {
 									className="outline outline-1 outline-zinc-200 border-0 rounded-md px-4 py-1 focus:outline-2 focus:outline-zinc-300"
 								/>
 							</div>
-							<ModalFooter>
+							<Modal.Footer>
 								<Button variant="outlined" className="px-4">
 									Cancelar
 								</Button>
 								<Button className="px-4" variant="dark">
 									Salvar
 								</Button>
-							</ModalFooter>
+							</Modal.Footer>
 						</Modal.Content>
-					</ModalContainer>
+					</Modal.Container>
 				</div>
 			</div>
 			<hr className="mx-2" />
@@ -155,13 +145,10 @@ export default function Clients() {
 				]}
 			/>
 			<Modal.Container>
-				<Modal.Header>
-					<h2 className="text-2xl font-semibold text-zinc-800">
-						Exluir cliente
-					</h2>
-					<Modal.Close />
-				</Modal.Header>
-				<Modal.Content>
+				<Modal.Content open={wichModalIsOpen === 'delete'}>
+					<Modal.Header>
+						Este cliente será excluído. Deseja continuar?
+					</Modal.Header>
 					<Modal.Footer>
 						<Button variant="outlined" className="px-4">
 							Cancelar

@@ -1,28 +1,12 @@
-import { ComponentProps, MouseEvent, forwardRef } from 'react';
+import { ComponentProps } from 'react';
 import { ModalContext, getProviders } from './modal-context';
 
-type ModalContainerProps = ComponentProps<'dialog'>;
+type ModalContainerProps = ComponentProps<'div'>;
 
-export const ModalContainer = forwardRef<
-	HTMLDialogElement,
-	ModalContainerProps
->(({ ...props }, ref) => {
+export function ModalContainer({ children }: ModalContainerProps) {
 	const providers = getProviders();
 
-	function onBackdropClicked(e: MouseEvent<HTMLDialogElement>) {
-		if (e.target === e.currentTarget) {
-			e.currentTarget.close();
-		}
-	}
-
 	return (
-		<ModalContext.Provider value={providers}>
-			<dialog
-				ref={ref}
-				className="inset-0 z-10 rounded-lg shadow backdrop:backdrop-blur-sm"
-				onClick={onBackdropClicked}
-				{...props}
-			/>
-		</ModalContext.Provider>
+		<ModalContext.Provider value={providers}>{children}</ModalContext.Provider>
 	);
-});
+}

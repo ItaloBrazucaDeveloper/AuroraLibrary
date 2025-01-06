@@ -4,6 +4,7 @@ import { RadioGroup } from '@components/radio-group';
 import { MapList } from '@components/utils/map-list';
 import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
+import { HeaderRoute } from '@components/header-route';
 
 export default function Home() {
 	const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -12,11 +13,7 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col gap-3 h-full w-full bg-white/85 shadow-md rounded-lg">
-			<header className="p-4">
-				<h1 className="font-semibold text-4xl">
-					<span className="text-zinc-500 font-normal">Home \</span> Olá, Júlia!
-				</h1>
-			</header>
+			<HeaderRoute routeName="Home" action="Olá, Júlia!" />
 			<main className="flex flex-col items-center justify-center gap-10 h-full">
 				<RadioGroup.Container
 					name="book-category"

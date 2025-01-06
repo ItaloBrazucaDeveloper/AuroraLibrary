@@ -9,9 +9,6 @@ export const ImageContext = createContext<ImageContextProps>(
 	{} as ImageContextProps,
 );
 
-/**
- * @returns The providers for the `ImageContext`.
- */
 export function getProviders(): ImageContextProps {
 	const [isLoaded, setIsLoaded] = useState<boolean>(true);
 

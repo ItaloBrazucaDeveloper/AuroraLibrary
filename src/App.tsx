@@ -12,6 +12,7 @@ export default function App() {
 					<Route path={'/books'} element={<Pages.Books />} />
 					<Route path={'/loans'} element={<Pages.Loans />} />
 					<Route path={'/clients'} element={<Pages.Clients />} />
+					<Route path={'*'} element={<Pages.NotFound />} />
 				</Routes>
 			</BrowserRouter>
 		</div>

@@ -1,7 +1,22 @@
 import { ComponentProps } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-type InputContainerProps = ComponentProps<'div'>;
+type InputContainerProps = ComponentProps<'div'> & {
+	flowDirection?: 'row' | 'col';
+};
 
-export function InputContainer({ ...props }: InputContainerProps) {
-	return <div {...props} />;
+export function InputContainer({
+	flowDirection = 'col',
+	className,
+	...props
+}: InputContainerProps) {
+	return (
+		<div
+			className={twMerge(
+				`relative flex flex-${flowDirection} gap-1`,
+				className,
+			)}
+			{...props}
+		/>
+	);
 }

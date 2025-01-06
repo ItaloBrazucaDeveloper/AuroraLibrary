@@ -11,7 +11,6 @@ interface DataTableProps {
 	headers: string[];
 	data: {}[];
 	hasEnumarate?: boolean;
-	actions?: 'edit' | 'delete' | 'edit-delete';
 	onActionsClicked: (action: 'edit' | 'delete', dataRow: {}) => void;
 }
 
@@ -19,12 +18,11 @@ export function DataTable({
 	headers,
 	data,
 	hasEnumarate = false,
-	actions = 'edit-delete',
 	onActionsClicked,
 }: DataTableProps) {
 	const Fallback = (
-		<DataTableRow className="text-center">
-			<DataTableField colSpan={headers.length}>
+		<DataTableRow>
+			<DataTableField className="text-center" colSpan={headers.length + 1}>
 				Nenhum registro encontrado
 			</DataTableField>
 		</DataTableRow>
@@ -71,7 +69,7 @@ export function DataTable({
 								))}
 								<DataTableActions
 									dataRow={row}
-									actions={actions}
+									actions="edit-delete"
 									onActionsClicked={onActionsClicked}
 								/>
 							</DataTableRow>

@@ -1,5 +1,5 @@
 import { ClientForm } from './client-form';
 import { clientSchema } from './client-schema';
-import { ClientType } from './client-type';
+import { ClientSchemaType } from './client-type';
 
-export { clientSchema, type ClientType, ClientForm };
+export { clientSchema, type ClientSchemaType, ClientForm };

@@ -2,10 +2,9 @@ import z from 'zod';
 
 const regex = {
 	name: /[\p{L}\s]+/u,
-	tellphone: /\(\d{2}\)(\s9.|\s)[0-9]{4}-[0-9]{4}/,
+	phone: /\(\d{2}\)(\s9.|\s)[0-9]{4}-[0-9]{4}/,
 	cpf: /[0-9]{3}\.[0-9]{3}.[0-9]{3}-[0-9]{2}/,
 	cep: /[0-9]{2}[0-9]{3}-[0-9]{3}/,
-	onlyNumbers: /\d/,
 };
 
 export const clientSchema = z.object({
@@ -19,13 +18,12 @@ export const clientSchema = z.object({
 		.string()
 		.nonempty('Campo vazio. Insira seu email.')
 		.email('Email inválido.'),
-	tellphone: z
+	phone: z
 		.string()
 		.nonempty('Campo vazio. Insira seu número de telefone.')
-		.regex(regex.onlyNumbers, 'Este campo aceita apenas números.')
+		.regex(regex.phone, 'Formato de telefone inválido.')
 		.min(14, 'Telefone muito curto. Este campo deve ter mais de 14 caracteres.')
-		.max(16, 'Telefone muito longo. Este campo tem o limite de 16 caracteres.')
-		.regex(regex.tellphone, 'Formato de telefone inválido.'),
+		.max(16, 'Telefone muito longo. Este campo tem o limite de 16 caracteres.'),
 	cpf: z
 		.string()
 		.nonempty('Campo vazio. Insira seu CPF.')

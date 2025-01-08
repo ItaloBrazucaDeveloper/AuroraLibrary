@@ -5,6 +5,7 @@ import { RadioGroup } from '@components/radio-group';
 import { MapList } from '@components/utils/map-list';
 import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
+import { RoundedContainer } from '@components/rounded-container';
 
 export default function Home() {
 	const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -12,7 +13,7 @@ export default function Home() {
 	);
 
 	return (
-		<div className="flex flex-col gap-3 h-full w-full bg-white/85 shadow-md rounded-lg">
+		<RoundedContainer>
 			<HeaderRoute routeName="Home" action="Olá, Júlia!" />
 			<main className="flex flex-col items-center justify-center gap-10 h-full">
 				<RadioGroup.Container
@@ -46,7 +47,7 @@ export default function Home() {
 					/>
 				</div>
 			</main>
-		</div>
+		</RoundedContainer>
 	);
 }
 

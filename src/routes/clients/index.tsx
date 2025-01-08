@@ -4,39 +4,70 @@ import { HeaderRoute } from '@components/header-route';
 import { Input } from '@components/input';
 import { Modal } from '@components/modal';
 
-import { ClientForm, type ClientType } from './client-form';
+import { ClientType } from '@src/types/client-type';
+import { ClientForm } from './client-form';
 
 import { useModal } from '@hooks/useModal';
 import { useFetchApi } from '@services/useFetchApi';
 
+import { RoundedContainer } from '@components/rounded-container';
 import { FilterIcon, SearchIcon, UserPlusIcon, XIcon } from 'lucide-react';
-import { useEffect, useId, useState } from 'react';
+import { ReactNode, useEffect, useId, useState } from 'react';
+
+type ClientStateProps = {
+	name: string;
+	phone: string;
+	email: string;
+	cpf: string;
+	Address: ReactNode;
+}[];
 
 export default function Clients() {
 	const api = useFetchApi();
 
-	const [clients, setClients] = useState<ClientType[]>([]);
-	const [selectedClient, setSelectedClient] = useState<ClientType | null>(null);
+	const [clients, setClients] = useState<ClientStateProps>([]);
+	const [updatedData, setUpdatedData] = useState<boolean>(false);
+	const [selectedClient, setSelectedClient] = useState<ClientType>(
+		{} as ClientType,
+	);
+
+	function handleClients(clients: ClientType[]) {
+		setClients(
+			clients.map(({ id_user, address, ...rest }) => ({
+				...rest,
+				Address: (
+					<div>
+						<span className="text-zinc-600">
+							{address.city} - {address.state}
+						</span>
+						<br />
+						{address.neighborhood}
+					</div>
+				),
+			})),
+		);
+	}
 
 	const modalClientFormId = useId();
-	const modalClientForm = useModal();
+	const modalCreateClientForm = useModal();
+	const modalEditClientForm = useModal();
 	const modalDeleteClient = useModal();
 
 	useEffect(() => {
-		api.get<ClientType[]>('/users').then(setClients).catch(console.error);
+		api.get<ClientType[]>('/users').then(handleClients).catch(console.error);
 	}, []);
 
 	function onActionsClicked(action: 'edit' | 'delete', dataRow: {}) {
 		if (action === 'edit') {
 			setSelectedClient(dataRow as ClientType);
-			modalDeleteClient.openModal();
+			modalEditClientForm.openModal();
 		} else if (action === 'delete') {
 			modalDeleteClient.openModal();
 		}
 	}
 
 	return (
-		<div className="flex flex-col gap-3 h-full w-full bg-white/85 shadow-md rounded-lg">
+		<RoundedContainer>
 			<HeaderRoute routeName="Clientes" action="Listagem" />
 			<div className="flex justify-between mx-2 mt-5">
 				<Button
@@ -66,7 +97,7 @@ export default function Clients() {
 						variant="dark"
 						icon={UserPlusIcon}
 						title="Cadastrar cliente"
-						onClick={() => modalClientForm.openModal()}
+						onClick={() => modalCreateClientForm.openModal()}
 						className="p-4 absolute bottom-0 right-0 m-8 rounded-full md:m-0 md:px-4 md:py-1 md:rounded-md md:relative"
 					>
 						<span className="hidden md:block">Cadastrar cliente</span>
@@ -77,10 +108,11 @@ export default function Clients() {
 			<DataTable
 				hasEnumarate
 				onActionsClicked={onActionsClicked}
-				headers={['Nome', 'Email', 'Telefone', 'CPF', 'Endereço', 'Ações']}
+				headers={['Nome', 'Telefone', 'Email', 'CPF', 'Endereço', 'Ações']}
 				data={clients}
 			/>
-			<Modal.Container ref={modalClientForm.modalRef}>
+			{/* Create Client */}
+			<Modal.Container ref={modalCreateClientForm.modalRef}>
 				<Modal.Content>
 					<Modal.Header>
 						<h2 className="text-2xl font-semibold text-zinc-800">
@@ -89,16 +121,16 @@ export default function Clients() {
 						<Button
 							icon={XIcon}
 							title="Fechar"
-							onClick={() => modalClientForm.closeModal()}
+							onClick={() => modalCreateClientForm.closeModal()}
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
 						/>
 					</Modal.Header>
-					<ClientForm id={modalClientFormId} data={selectedClient} />
+					<ClientForm id={modalClientFormId} />
 					<Modal.Footer>
 						<Button
 							className="px-4"
 							variant="outlined"
-							onClick={() => modalClientForm.closeModal()}
+							onClick={() => modalCreateClientForm.closeModal()}
 						>
 							Cancelar
 						</Button>
@@ -108,13 +140,47 @@ export default function Clients() {
 					</Modal.Footer>
 				</Modal.Content>
 			</Modal.Container>
+			{/* Edit Client */}
+			<Modal.Container ref={modalEditClientForm.modalRef}>
+				<Modal.Content>
+					<Modal.Header>
+						<h2 className="text-2xl font-semibold text-zinc-800">
+							Editar Cliente
+						</h2>
+						<Button
+							icon={XIcon}
+							title="Fechar"
+							onClick={() => modalEditClientForm.closeModal()}
+							className="p-0.5 size-5 bg-rose-300 rounded-full"
+						/>
+					</Modal.Header>
+					<ClientForm id={modalClientFormId} data={selectedClient} />
+					<Modal.Footer>
+						<Button
+							className="px-4"
+							variant="outlined"
+							onClick={() => modalEditClientForm.closeModal()}
+						>
+							Cancelar
+						</Button>
+						<Button form={modalClientFormId} variant="dark" className="px-4">
+							Atualizar
+						</Button>
+					</Modal.Footer>
+				</Modal.Content>
+			</Modal.Container>
+			{/* Delete Client */}
 			<Modal.Container ref={modalDeleteClient.modalRef}>
 				<Modal.Content>
 					<Modal.Header>
 						Este cliente será excluído. Deseja continuar?
 					</Modal.Header>
 					<Modal.Footer>
-						<Button variant="outlined" className="px-4">
+						<Button
+							variant="outlined"
+							className="px-4"
+							onClick={() => modalDeleteClient.closeModal()}
+						>
 							Cancelar
 						</Button>
 						<Button className="px-4" variant="dark">
@@ -123,6 +189,6 @@ export default function Clients() {
 					</Modal.Footer>
 				</Modal.Content>
 			</Modal.Container>
-		</div>
+		</RoundedContainer>
 	);
 }

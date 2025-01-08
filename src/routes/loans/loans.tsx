@@ -1,3 +1,9 @@
+import { RoundedContainer } from '@components/rounded-container';
+
 export default function Loans() {
-	return <h1>Empréstimos</h1>
+	return (
+		<RoundedContainer>
+			<h1>Empréstimos</h1>
+		</RoundedContainer>
+	);
 }

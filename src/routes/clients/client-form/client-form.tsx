@@ -5,32 +5,18 @@ import { Input } from '@components/input';
 import { useFetchApi } from '@services/useFetchApi';
 
 import { clientSchema } from './client-schema';
-import type { ClientType } from './client-type';
+import type { ClientSchemaType } from './client-type';
 
 type ClientFormProps = ComponentProps<'form'> & {
-	data: ClientType | null;
+	data?: ClientSchemaType;
 };
 
-export function ClientForm({ data = null, ...props }: ClientFormProps) {
+export function ClientForm({ data, ...props }: ClientFormProps) {
 	const api = useFetchApi();
 	const [errorMessage, setErrorMessage] = useState<ZodError | null>(null);
 
-	function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-		const formData = new FormData(e.currentTarget);
-
-		const dataToSend: ClientType = {
-			name: String(formData.get('name')),
-			email: String(formData.get('email')),
-			tellphone: String(formData.get('tellphone')),
-			cpf: String(formData.get('cpf')),
-			address: {
-				number: Number(formData.get('number')),
-				cep: String(formData.get('cep')),
-			},
-		};
-
-		const validation = clientSchema.safeParse(dataToSend);
+	function dataValidate(data: ClientSchemaType) {
+		const validation = clientSchema.safeParse(data);
 
 		if (validation.success) {
 			console.dir(validation.data);
@@ -39,6 +25,23 @@ export function ClientForm({ data = null, ...props }: ClientFormProps) {
 			console.error(validation.error.issues);
 			setErrorMessage(validation.error);
 		}
+	}
+
+	function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+
+		const dataToSend: ClientSchemaType = {
+			name: String(formData.get('name')),
+			email: String(formData.get('email')),
+			phone: String(formData.get('phone')),
+			cpf: String(formData.get('cpf')),
+			address: {
+				number: Number(formData.get('number')),
+				cep: String(formData.get('cep')),
+			},
+		};
+		dataValidate(dataToSend);
 	}
 
 	function getErrorMessage(inputName: string): string | null {
@@ -62,6 +65,7 @@ export function ClientForm({ data = null, ...props }: ClientFormProps) {
 					name="name"
 					placeholder="ex: João Da Dilva"
 					value={data?.name}
+					className="py-2"
 				/>
 				<Input.ErrorMessage message={getErrorMessage('name')} />
 			</Input.Container>
@@ -71,15 +75,17 @@ export function ClientForm({ data = null, ...props }: ClientFormProps) {
 					name="email"
 					placeholder="ex: jo123@gmail.com"
 					value={data?.email}
+					className="py-2"
 				/>
 				<Input.ErrorMessage message={getErrorMessage('email')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>Telefone</Input.Label>
 				<Input.Control
-					name="tellphone"
+					name="phone"
 					placeholder="ex: (61) 9.9999-9999"
-					value={data?.tellphone}
+					value={data?.phone}
+					className="py-2"
 				/>
 				<Input.ErrorMessage message={getErrorMessage('tellphone')} />
 			</Input.Container>
@@ -89,6 +95,7 @@ export function ClientForm({ data = null, ...props }: ClientFormProps) {
 					name="cpf"
 					placeholder="ex: 000.000.000-00"
 					value={data?.cpf}
+					className="py-2"
 				/>
 				<Input.ErrorMessage message={getErrorMessage('cpf')} />
 			</Input.Container>
@@ -103,7 +110,8 @@ export function ClientForm({ data = null, ...props }: ClientFormProps) {
 						<Input.Control
 							name="cep"
 							placeholder="ex: 00.000-000"
-							value={data?.address.cep}
+							value={data?.address?.cep}
+							className="py-2"
 						/>
 						<Input.ErrorMessage message={getErrorMessage('cep')} />
 					</Input.Container>
@@ -113,7 +121,8 @@ export function ClientForm({ data = null, ...props }: ClientFormProps) {
 							name="number"
 							type="number"
 							placeholder="ex: 15"
-							value={data?.address.number}
+							value={data?.address?.number}
+							className="py-2"
 						/>
 						<Input.ErrorMessage message={getErrorMessage('number')} />
 					</Input.Container>

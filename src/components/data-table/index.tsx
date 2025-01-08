@@ -1,8 +1,10 @@
 import { MapList } from '../utils/map-list';
 import { Show } from '../utils/show';
+
 import { DataTableActions } from './data-table-actions';
 import { DataTableBody } from './data-table-body';
 import { DataTableContainer } from './data-table-container';
+
 import { DataTableField } from './data-table-field';
 import { DataTableHeader } from './data-table-header';
 import { DataTableRow } from './data-table-row';
@@ -21,7 +23,7 @@ export function DataTable({
 	onActionsClicked,
 }: DataTableProps) {
 	const Fallback = (
-		<DataTableRow>
+		<DataTableRow className="hover:bg-transparent hover:ring-0">
 			<DataTableField className="text-center" colSpan={headers.length + 1}>
 				Nenhum registro encontrado
 			</DataTableField>
@@ -59,12 +61,12 @@ export function DataTable({
 										{index + 1}
 									</DataTableField>
 								</Show>
-								{Object.values(row).map((field, fieldIndex) => (
+								{Object.values(row).map((field: any, fieldIndex) => (
 									<DataTableField
 										key={fieldIndex}
 										className="first:rounded-l-xl last:rounded-r-xl"
 									>
-										{String(field)}
+										{field}
 									</DataTableField>
 								))}
 								<DataTableActions

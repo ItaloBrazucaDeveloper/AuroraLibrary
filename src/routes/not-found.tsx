@@ -1,10 +1,11 @@
 import { Button } from '@components/button';
 import { HeaderRoute } from '@components/header-route';
 import { Image } from '@components/image';
+import { RoundedContainer } from '@components/rounded-container';
 
 export default function NotFound() {
 	return (
-		<div className="flex flex-col gap-3 h-full w-full bg-white/85 shadow-md rounded-lg">
+		<RoundedContainer>
 			<HeaderRoute routeName="Erro 404" action="..." />
 			<div className="flex flex-col md:flex-row justify-center items-center size-full gap-7">
 				<Image
@@ -26,6 +27,6 @@ export default function NotFound() {
 					</Button>
 				</div>
 			</div>
-		</div>
+		</RoundedContainer>
 	);
 }

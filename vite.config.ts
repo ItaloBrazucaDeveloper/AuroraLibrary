@@ -14,5 +14,9 @@ export default defineConfig({
 			'@routes': resolve(__dirname, 'src/routes'),
 		},
 	},
-	envDir: '.env',
+	define: {
+		'process.env.VITE_API_BASE_URL': JSON.stringify(
+			process.env.VITE_API_BASE_URL,
+		),
+	},
 });

@@ -9,8 +9,8 @@ export type ButtonProps = ComponentProps<'button'> & {
 
 export function Button({
 	variant = 'default',
-	className,
 	icon: Icon,
+	className,
 	children,
 	...props
 }: ButtonProps) {

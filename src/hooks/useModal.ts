@@ -1,7 +1,7 @@
-import { useRef } from 'react';
+import { ElementRef, useRef } from 'react';
 
 export function useModal() {
-	const modalRef = useRef<HTMLDialogElement | null>(null);
+	const modalRef = useRef<ElementRef<'dialog'>>(null);
 
 	function openModal() {
 		modalRef.current?.showModal();

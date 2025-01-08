@@ -9,7 +9,7 @@ export default function App() {
 				<Nav />
 				<Routes>
 					<Route index element={<Pages.Home />} />
-					<Route path={'/books'} element={<Pages.Books />} />
+					<Route path={'/books'}  element={<Pages.Books />} />
 					<Route path={'/loans'} element={<Pages.Loans />} />
 					<Route path={'/clients'} element={<Pages.Clients />} />
 					<Route path={'*'} element={<Pages.NotFound />} />

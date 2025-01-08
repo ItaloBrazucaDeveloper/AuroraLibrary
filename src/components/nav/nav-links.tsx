@@ -1,11 +1,12 @@
 import { links } from '@utils/nav-links';
 import { useState } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 import { twMerge } from 'tailwind-merge';
 import { MapList } from '../utils/map-list';
 
 export function NavLinks() {
-	const [selectedLink, setSelectedLink] = useState<string>('Home');
+	const { pathname: actualRoute } = useLocation();
+	const [selectedLink, setSelectedLink] = useState<string>(actualRoute);
 
 	function handleSelected(selectedLink: string) {
 		setSelectedLink(selectedLink);
@@ -28,11 +29,11 @@ export function NavLinks() {
 							<NavLink
 								to={href}
 								className={
-									selectedLink === text
+									selectedLink === href
 										? twMerge(styles.default, styles.selected)
 										: styles.default
 								}
-								onClick={() => handleSelected(text)}
+								onClick={() => handleSelected(href)}
 							>
 								<Icon strokeWidth={1.3} />
 								{text}

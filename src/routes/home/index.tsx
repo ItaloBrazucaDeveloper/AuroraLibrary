@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
+import { HeaderRoute } from '@components/header-route';
 import { RadioGroup } from '@components/radio-group';
 import { MapList } from '@components/utils/map-list';
 import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
-import { HeaderRoute } from '@components/header-route';
 
 export default function Home() {
 	const [selectedCategory, setSelectedCategory] = useState<string>(

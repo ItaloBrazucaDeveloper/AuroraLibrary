@@ -1,24 +1,22 @@
-import { UserIcon } from 'lucide-react';
 import { Image } from '@components/image';
+import { UserIcon } from 'lucide-react';
 
 export function UserInfo() {
 	return (
 		<div className="flex gap-3 py-4 items-center">
-			<Image.Container>
-				<Image.Source
-					src="https://github.com/ItaloBrazucaDeveloper.png"
-					alt="Lucas Almeida"
-					className="h-12 w-auto rounded-md"
-				/>
-				<Image.Fallback>
-					<div className="h-10 w-auto rounded-md bg-zinc-200">
+			<Image
+				alt="Foto de Júlia Santos"
+				src="https://github.com/ItaloBrazucaDeveloper.png"
+				className="size-12 rounded-md"
+				fallback={
+					<div className="size-10 rounded-md bg-zinc-200">
 						<UserIcon
 							strokeWidth={1.3}
-							className="h-10 w-auto rounded-md p-2"
+							className="size-10 rounded-md p-2"
 						/>
 					</div>
-				</Image.Fallback>
-			</Image.Container>
+				}
+			/>
 			<div className="grid gap-1">
 				<span className="text-sm text-zinc-600">
 					Júlia Santos • Bibliotecária

@@ -8,7 +8,7 @@ const regex = {
 	onlyNumbers: /\d/,
 };
 
-const clientSchema = z.object({
+export const clientSchema = z.object({
 	name: z
 		.string()
 		.nonempty('Campo vazio. Insira seu nome completo.')
@@ -31,20 +31,18 @@ const clientSchema = z.object({
 		.nonempty('Campo vazio. Insira seu CPF.')
 		.length(14, 'Tamanho de CPF inválido.')
 		.regex(regex.cpf, 'Formato de CPF inválido.'),
-	cep: z
-		.string()
-		.nonempty('Campo vazio. Insira seu CEP.')
-		.length(9, 'Tamanho de CEP inválido.')
-		.regex(regex.cep, 'Formato de CEP inválido.'),
-	number: z
-		.string()
-		.nonempty('Campo vazio. Insira o número do seu endereço.')
-		.max(
-			6,
-			'Número muito grande. Este campo aceita até o valor máximo de 999.999',
-		),
+	address: z.object({
+		cep: z
+			.string()
+			.nonempty('Campo vazio. Insira seu CEP.')
+			.length(9, 'Tamanho de CEP inválido.')
+			.regex(regex.cep, 'Formato de CEP inválido.'),
+		number: z
+			.number()
+			.min(1, 'Número inválido. Insira um número maior que 0 neste campo.')
+			.max(
+				999_999,
+				'Número muito grande. Este campo aceita até o valor máximo de 999.999',
+			),
+	}),
 });
-
-type ClientType = z.infer<typeof clientSchema>;
-
-export { clientSchema, type ClientType };

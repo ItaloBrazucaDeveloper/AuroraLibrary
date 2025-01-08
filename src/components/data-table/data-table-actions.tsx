@@ -9,8 +9,8 @@ type DataTableActionsProps = {
 
 export function DataTableActions({
 	dataRow,
-	actions = 'edit-delete',
 	onActionsClicked,
+	actions = 'edit-delete',
 }: DataTableActionsProps) {
 	const hasEditButton = actions === 'edit' || actions === 'edit-delete';
 	const hasDeleteButton = actions === 'delete' || actions === 'edit-delete';

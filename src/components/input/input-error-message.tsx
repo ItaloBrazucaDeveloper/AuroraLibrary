@@ -1,11 +1,11 @@
 import { ComponentProps } from 'react';
 
 type InputErrorMessageProps = ComponentProps<'span'> & {
-	message?: string;
+	message: string | null;
 };
 
 export function InputErrorMessage({
-	message,
+	message = null,
 	...props
 }: InputErrorMessageProps) {
 	return (

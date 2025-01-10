@@ -5,15 +5,15 @@ import { Input } from '@components/input';
 import { useFetchApi } from '@services/useFetchApi';
 
 import { clientSchema } from './client-schema';
-import type { ClientSchemaType } from './client-type';
+import type { ClientSchemaType } from './client-schema-type';
 
 type ClientFormProps = ComponentProps<'form'> & {
 	data?: ClientSchemaType;
 };
 
 export function ClientForm({ data, ...props }: ClientFormProps) {
-	const api = useFetchApi();
 	const [errorMessage, setErrorMessage] = useState<ZodError | null>(null);
+	const api = useFetchApi();
 
 	function dataValidate(data: ClientSchemaType) {
 		const validation = clientSchema.safeParse(data);
@@ -99,7 +99,7 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 				/>
 				<Input.ErrorMessage message={getErrorMessage('cpf')} />
 			</Input.Container>
-			<div>
+			<fieldset>
 				<header className="space-y-2 mb-3">
 					<span className="text-zinc-500">Endereço</span>
 					<hr />
@@ -127,7 +127,7 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 						<Input.ErrorMessage message={getErrorMessage('number')} />
 					</Input.Container>
 				</div>
-			</div>
+			</fieldset>
 		</form>
 	);
 }

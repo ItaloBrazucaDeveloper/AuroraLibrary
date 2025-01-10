@@ -13,49 +13,33 @@ import { useFetchApi } from '@services/useFetchApi';
 import { RoundedContainer } from '@components/rounded-container';
 import { FilterIcon, SearchIcon, UserPlusIcon, XIcon } from 'lucide-react';
 import { ReactNode, useEffect, useId, useState } from 'react';
+import { ClientAddress } from './client-address';
 
-type ClientStateProps = {
-	name: string;
-	phone: string;
-	email: string;
-	cpf: string;
-	Address: ReactNode;
-}[];
+type DataTableClientsType = Array<
+	Omit<ClientType, 'id_user' | 'address'> & {
+		Address: ReactNode;
+	}
+>;
 
 export default function Clients() {
 	const api = useFetchApi();
 
-	const [clients, setClients] = useState<ClientStateProps>([]);
-	const [updatedData, setUpdatedData] = useState<boolean>(false);
-	const [selectedClient, setSelectedClient] = useState<ClientType>(
-		{} as ClientType,
-	);
-
-	function handleClients(clients: ClientType[]) {
-		setClients(
-			clients.map(({ id_user, address, ...rest }) => ({
-				...rest,
-				Address: (
-					<div>
-						<span className="text-zinc-600">
-							{address.city} - {address.state}
-						</span>
-						<br />
-						{address.neighborhood}
-					</div>
-				),
-			})),
-		);
-	}
+	const [clients, setClients] = useState<DataTableClientsType>([]);
+	const [selectedClient, setSelectedClient] = useState<ClientType>();
 
 	const modalClientFormId = useId();
 	const modalCreateClientForm = useModal();
 	const modalEditClientForm = useModal();
 	const modalDeleteClient = useModal();
 
-	useEffect(() => {
-		api.get<ClientType[]>('/users').then(handleClients).catch(console.error);
-	}, []);
+	function handleClients(clients: ClientType[]) {
+		setClients(
+			clients.map(({ id_user, address, ...rest }) => ({
+				...rest,
+				Address: <ClientAddress {...address} />,
+			})),
+		);
+	}
 
 	function onActionsClicked(action: 'edit' | 'delete', dataRow: {}) {
 		if (action === 'edit') {
@@ -65,6 +49,10 @@ export default function Clients() {
 			modalDeleteClient.openModal();
 		}
 	}
+
+	useEffect(() => {
+		api.get<ClientType[]>('/users').then(handleClients).catch(console.error);
+	}, []);
 
 	return (
 		<RoundedContainer>

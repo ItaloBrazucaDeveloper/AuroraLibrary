@@ -48,7 +48,7 @@ export function DataTable({
 				/>
 			</DataTableHeader>
 			<DataTableBody>
-				<Show condition={data.length > 0} fallback={Fallback}>
+				<Show condition={data?.length > 0} fallback={Fallback}>
 					<MapList
 						list={data}
 						callback={(row, index) => (

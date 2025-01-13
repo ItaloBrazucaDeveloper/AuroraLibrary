@@ -6,5 +6,8 @@
  */
 export function capitalize(value: string): string {
 	// '\b' of regex represents, in this case, a start of expression
-	return value.replace(/\b\w/g, (char) => char.toUpperCase());
+	const allLowerCase = value.toLowerCase();
+	return allLowerCase.replace(/\b\w/g, (firstLetter) =>
+		firstLetter.toUpperCase(),
+	);
 }

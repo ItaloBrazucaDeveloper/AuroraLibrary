@@ -1,4 +1,4 @@
-import { AddressType } from '@src/types/address-type';
+import { AddressType } from 'src/types/address-type';
 
 type ClientAddressProps = Pick<AddressType, 'city' | 'state' | 'neighborhood'>;
 

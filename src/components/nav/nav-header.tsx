@@ -9,11 +9,11 @@ interface NavHeaderProps {
 export function NavHeader({ toggleNav }: NavHeaderProps) {
 	return (
 		<>
-			<header className="flex items-center justify-between gap-3 p-3 rounded-lg shadow-sm shadow-zinc-400 bg-white/85">
+			<header className="flex items-center justify-between gap-3 px-2 py-3 pb-4">
 				<Logo />
-				<Button icon={MenuIcon} className="md:hidden" onClick={toggleNav} />
+				<Button icon={MenuIcon} onClick={toggleNav} className="md:hidden" />
 			</header>
-			<hr className="hidden md:block border-zinc-300/60 mt-3 mb-5" />
+			<hr className="border-zinc-300/60 mr-2" />
 		</>
 	);
 }

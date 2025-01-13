@@ -2,23 +2,22 @@ import { useState } from 'react';
 
 import { HeaderRoute } from '@components/header-route';
 import { RadioGroup } from '@components/radio-group';
+
 import { MapList } from '@components/utils/map-list';
 import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
-import { RoundedContainer } from '@components/rounded-container';
 
 export default function Home() {
 	const [selectedCategory, setSelectedCategory] = useState<string>(
 		tags[0].label,
 	);
-
 	return (
-		<RoundedContainer>
+		<>
 			<HeaderRoute routeName="Home" action="Olá, Júlia!" />
-			<main className="flex flex-col items-center justify-center gap-10 h-full">
+			<div className="flex flex-col items-center justify-center gap-10 h-full">
 				<RadioGroup.Container
 					name="book-category"
-					className="flex gap-3 gap-y-4 justify-center flex-wrap"
+					className="flex flex-wrap-reverse justify-center gap-y-5 gap-x-4"
 				>
 					<MapList
 						list={tags}
@@ -46,11 +45,7 @@ export default function Home() {
 						className="outline-none border-none py-3 px-4 w-full rounded-full shadow-sm ring-2 ring-rose-200 focus:ring-rose-300 pl-12"
 					/>
 				</div>
-			</main>
-		</RoundedContainer>
+			</div>
+		</>
 	);
-}
-
-{
-	/* <a href="https://www.flaticon.com/free-icons/polar-lights" title="polar lights icons">Polar lights icons created by Freepik - Flaticon</a> */
 }

@@ -2,10 +2,9 @@ import { ComponentProps, FormEvent, useState } from 'react';
 import { ZodError } from 'zod';
 
 import { Input } from '@components/input';
-import { useFetchApi } from '@services/useFetchApi';
+import { useFetchApi } from '@hooks/useFetchApi';
 
-import { clientSchema } from './client-schema';
-import type { ClientSchemaType } from './client-schema-type';
+import { type ClientSchemaType, clientSchema } from './client-schema';
 
 type ClientFormProps = ComponentProps<'form'> & {
 	data?: ClientSchemaType;

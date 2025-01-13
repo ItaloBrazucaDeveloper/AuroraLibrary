@@ -2,7 +2,7 @@ import { ComponentProps, FormEvent, useState } from 'react';
 import { ZodError } from 'zod';
 
 import { Input } from '@components/input';
-import { useFetchApi } from '@services/useFetchApi';
+import { useFetchApi } from '@hooks/useFetchApi';
 
 import { bookSchema } from './book-schema';
 import type { BookSchemaType } from './book-schema-type';

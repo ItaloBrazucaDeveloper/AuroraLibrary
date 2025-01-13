@@ -4,13 +4,12 @@ import { HeaderRoute } from '@components/header-route';
 import { Input } from '@components/input';
 import { Modal } from '@components/modal';
 
-import { ClientType } from '@src/types/client-type';
+import { ClientType } from 'src/types/client-type';
 import { ClientForm } from './client-form';
 
+import { useFetchApi } from '@hooks/useFetchApi';
 import { useModal } from '@hooks/useModal';
-import { useFetchApi } from '@services/useFetchApi';
 
-import { RoundedContainer } from '@components/rounded-container';
 import { FilterIcon, SearchIcon, UserPlusIcon, XIcon } from 'lucide-react';
 import { ReactNode, useEffect, useId, useState } from 'react';
 import { ClientAddress } from './client-address';
@@ -55,7 +54,7 @@ export default function Clients() {
 	}, []);
 
 	return (
-		<RoundedContainer>
+		<>
 			<HeaderRoute routeName="Clientes" action="Listagem" />
 			<div className="flex justify-between mx-2 mt-5">
 				<Button
@@ -177,6 +176,6 @@ export default function Clients() {
 					</Modal.Footer>
 				</Modal.Content>
 			</Modal.Container>
-		</RoundedContainer>
+		</>
 	);
 }

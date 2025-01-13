@@ -44,3 +44,5 @@ export const clientSchema = z.object({
 			),
 	}),
 });
+
+export type ClientSchemaType = z.infer<typeof clientSchema>;

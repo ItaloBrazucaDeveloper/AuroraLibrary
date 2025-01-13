@@ -4,14 +4,14 @@ import { HeaderRoute } from '@components/header-route';
 import { Input } from '@components/input';
 import { Modal } from '@components/modal';
 
-import { ClientType } from 'src/types/client-type';
+import type { ClientType } from '~types/client-type';
 import { ClientForm } from './client-form';
 
 import { useFetchApi } from '@hooks/useFetchApi';
 import { useModal } from '@hooks/useModal';
 
 import { FilterIcon, SearchIcon, UserPlusIcon, XIcon } from 'lucide-react';
-import { ReactNode, useEffect, useId, useState } from 'react';
+import { type ReactNode, useEffect, useId, useState } from 'react';
 import { ClientAddress } from './client-address';
 
 type DataTableClientsType = Array<
@@ -20,9 +20,13 @@ type DataTableClientsType = Array<
 	}
 >;
 
-export default function Clients() {
+export async function loader() {
 	const api = useFetchApi();
+	const clients = await api.get<ClientType[]>('/users');
+	return clients;
+}
 
+export default function Clients() {
 	const [clients, setClients] = useState<DataTableClientsType>([]);
 	const [selectedClient, setSelectedClient] = useState<ClientType>();
 
@@ -31,14 +35,14 @@ export default function Clients() {
 	const modalEditClientForm = useModal();
 	const modalDeleteClient = useModal();
 
-	function handleClients(clients: ClientType[]) {
+	/* useEffect(() => {
 		setClients(
-			clients.map(({ id_user, address, ...rest }) => ({
+			loaderData.map(({ id_user, address, ...rest }) => ({
 				...rest,
 				Address: <ClientAddress {...address} />,
 			})),
 		);
-	}
+	}, [clients]); */
 
 	function onActionsClicked(action: 'edit' | 'delete', dataRow: {}) {
 		if (action === 'edit') {
@@ -48,10 +52,6 @@ export default function Clients() {
 			modalDeleteClient.openModal();
 		}
 	}
-
-	useEffect(() => {
-		api.get<ClientType[]>('/users').then(handleClients).catch(console.error);
-	}, []);
 
 	return (
 		<>

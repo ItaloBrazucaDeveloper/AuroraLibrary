@@ -1,4 +1,4 @@
-import { ComponentProps, FormEvent, useState } from 'react';
+import { type ComponentProps, type FormEvent, useState } from 'react';
 import { ZodError } from 'zod';
 
 import { Input } from '@components/input';
@@ -11,7 +11,7 @@ type BookFormProps = ComponentProps<'form'> & {
 	data?: BookSchemaType;
 };
 
-export function ClientForm({ data, ...props }: BookFormProps) {
+export function BookForm({ data, ...props }: BookFormProps) {
 	const [errorMessage, setErrorMessage] = useState<ZodError | null>(null);
 	const api = useFetchApi();
 

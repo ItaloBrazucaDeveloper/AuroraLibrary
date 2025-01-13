@@ -12,15 +12,16 @@ export default defineConfig({
 			'@hooks': resolve(__dirname, 'src/hooks'),
 			'@services': resolve(__dirname, 'src/services'),
 			'@pages': resolve(__dirname, 'src/pages'),
+			'~types': resolve(__dirname, 'src/types')
 		},
 	},
 	server: {
 		proxy: {
 			'/lib_api': {
-				target: 'http//localhost:8000',
+				target: 'http://localhost:8000',
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/lib_api/, ''),
 			},
-		}
+		},
 	},
 });

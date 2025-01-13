@@ -1,4 +1,4 @@
-import { ComponentProps, FormEvent, useState } from 'react';
+import { type ComponentProps, type FormEvent, useState } from 'react';
 import { ZodError } from 'zod';
 
 import { Input } from '@components/input';

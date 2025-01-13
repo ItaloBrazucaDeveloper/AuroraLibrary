@@ -17,12 +17,14 @@
 
     "baseUrl": "./",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@utils/*": ["src/utils/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@services/*": ["src/services/*"],
-      "@pages/*": ["src/pages/*"],
+      "@components/*": ["app/components/*"],
+      "@utils/*": ["app/utils/*"],
+      "@hooks/*": ["app/hooks/*"],
+      "@services/*": ["app/services/*"],
+      "@pages/*": ["app/routes/*"],
+      "~types/*": ["app/types/*"]
     },
+    "rootDirs": [".", "./.react-router/types"],
 
     /* Linting */
     "strict": true,
@@ -31,5 +33,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["app", ".react-router/types/**/*"]
 }

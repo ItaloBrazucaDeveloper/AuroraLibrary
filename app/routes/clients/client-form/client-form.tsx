@@ -55,7 +55,7 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 		<form
 			method="dialog"
 			onSubmit={handleSubmitForm}
-			className="flex flex-col gap-7"
+			className="flex flex-col gap-5"
 			{...props}
 		>
 			<Input.Container>
@@ -86,7 +86,7 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 					value={data?.phone}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('tellphone')} />
+				<Input.ErrorMessage message={getErrorMessage('phone')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>CPF</Input.Label>

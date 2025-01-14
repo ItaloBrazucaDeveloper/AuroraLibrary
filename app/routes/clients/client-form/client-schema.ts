@@ -1,4 +1,5 @@
 import z from 'zod';
+import { capitalize } from '@utils/capitalize';
 
 const regex = {
 	name: /[\p{L}\s]+/u,
@@ -13,11 +14,13 @@ export const clientSchema = z.object({
 		.nonempty('Campo vazio. Insira seu nome completo.')
 		.regex(regex.name, 'Este campo aceita apenas letras.')
 		.min(3, 'Nome muito curto. Este campo deve ter mais de 3 caracteres.')
-		.max(45, 'Nome muito longo. Este campo tem o limite de 45 caracteres.'),
+		.max(45, 'Nome muito longo. Este campo tem o limite de 45 caracteres.')
+		.transform(capitalize),
 	email: z
 		.string()
 		.nonempty('Campo vazio. Insira seu email.')
-		.email('Email inválido.'),
+		.email('Email inválido.')
+		.transform((value) => value.toLowerCase()),
 	phone: z
 		.string()
 		.nonempty('Campo vazio. Insira seu número de telefone.')

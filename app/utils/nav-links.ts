@@ -2,7 +2,7 @@ import { BookCopyIcon, BookUserIcon, HomeIcon, UsersIcon } from 'lucide-react';
 
 export const links = [
 	{
-		href: '/',
+		href: '/home',
 		text: 'Home',
 		icon: HomeIcon,
 	},

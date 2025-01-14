@@ -11,14 +11,14 @@ import { DataTableRow } from './data-table-row';
 
 interface DataTableProps {
 	headers: string[];
-	data: {}[];
+	data?: {}[];
 	hasEnumarate?: boolean;
 	onActionsClicked: (action: 'edit' | 'delete', dataRow: {}) => void;
 }
 
 export function DataTable({
 	headers,
-	data,
+	data = [],
 	hasEnumarate = false,
 	onActionsClicked,
 }: DataTableProps) {

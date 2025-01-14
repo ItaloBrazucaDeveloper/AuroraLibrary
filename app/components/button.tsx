@@ -16,7 +16,7 @@ export function Button({
 }: ButtonProps) {
 	const styles = {
 		default:
-			'group flex items-center gap-2 border-none border-none hover:opacity-80 rounded-lg px-3 py-1',
+			'group flex items-center gap-2 border-none border-none hover:opacity-80 disabled:hover:opacity-100 rounded-lg px-3 py-1',
 		dark: 'bg-zinc-800 text-zinc-100',
 		outlined: 'bg-none ring ring-1 ring-zinc-300',
 	};

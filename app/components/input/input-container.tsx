@@ -13,7 +13,7 @@ export function InputContainer({
 	return (
 		<div
 			className={twMerge(
-				`relative flex flex-${flowDirection} gap-1`,
+				`relative flex flex-${flowDirection} gap-2`,
 				className,
 			)}
 			{...props}

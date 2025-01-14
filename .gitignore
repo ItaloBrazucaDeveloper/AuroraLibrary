@@ -11,7 +11,7 @@ lerna-debug.log*
 .env
 !.env.example
 *.http
-.react-router/
+.react-router/*
 
 node_modules
 dist

@@ -11,7 +11,9 @@ import { useFetchApi } from '@hooks/useFetchApi';
 import { useModal } from '@hooks/useModal';
 
 import { FilterIcon, SearchIcon, UserPlusIcon, XIcon } from 'lucide-react';
-import { type ReactNode, useEffect, useId, useState } from 'react';
+import { type ReactNode, useId, useState } from 'react';
+import { Route } from './+types';
+
 import { ClientAddress } from './client-address';
 
 type DataTableClientsType = Array<
@@ -21,33 +23,26 @@ type DataTableClientsType = Array<
 >;
 
 export async function loader() {
-	const api = useFetchApi();
-	const clients = await api.get<ClientType[]>('/users');
-	return clients;
+	try {
+		const api = useFetchApi();
+		const clients = await api.get<ClientType[]>('/users');
+		return clients;
+	} catch (error) {
+		console.error(error);
+	}
 }
 
-export default function Clients() {
-	const [clients, setClients] = useState<DataTableClientsType>([]);
+export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 	const [selectedClient, setSelectedClient] = useState<ClientType>();
 
 	const modalClientFormId = useId();
-	const modalCreateClientForm = useModal();
-	const modalEditClientForm = useModal();
+	const modalClientForm = useModal();
 	const modalDeleteClient = useModal();
-
-	/* useEffect(() => {
-		setClients(
-			loaderData.map(({ id_user, address, ...rest }) => ({
-				...rest,
-				Address: <ClientAddress {...address} />,
-			})),
-		);
-	}, [clients]); */
 
 	function onActionsClicked(action: 'edit' | 'delete', dataRow: {}) {
 		if (action === 'edit') {
 			setSelectedClient(dataRow as ClientType);
-			modalEditClientForm.openModal();
+			modalClientForm.openModal();
 		} else if (action === 'delete') {
 			modalDeleteClient.openModal();
 		}
@@ -84,7 +79,7 @@ export default function Clients() {
 						variant="dark"
 						icon={UserPlusIcon}
 						title="Cadastrar cliente"
-						onClick={() => modalCreateClientForm.openModal()}
+						onClick={() => modalClientForm.openModal()}
 						className="p-4 absolute bottom-0 right-0 m-8 rounded-full md:m-0 md:px-4 md:py-1 md:rounded-md md:relative"
 					>
 						<span className="hidden md:block">Cadastrar cliente</span>
@@ -98,8 +93,8 @@ export default function Clients() {
 				headers={['Nome', 'Telefone', 'Email', 'CPF', 'Endereço', 'Ações']}
 				data={clients}
 			/>
-			{/* Create Client */}
-			<Modal.Container ref={modalCreateClientForm.modalRef}>
+			{/* Client Form - Create|Edit */}
+			<Modal.Container ref={modalClientForm.modalRef}>
 				<Modal.Content>
 					<Modal.Header>
 						<h2 className="text-2xl font-semibold text-zinc-800">
@@ -108,7 +103,7 @@ export default function Clients() {
 						<Button
 							icon={XIcon}
 							title="Fechar"
-							onClick={() => modalCreateClientForm.closeModal()}
+							onClick={() => modalClientForm.closeModal()}
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
 						/>
 					</Modal.Header>
@@ -117,41 +112,12 @@ export default function Clients() {
 						<Button
 							className="px-4"
 							variant="outlined"
-							onClick={() => modalCreateClientForm.closeModal()}
+							onClick={() => modalClientForm.closeModal()}
 						>
 							Cancelar
 						</Button>
 						<Button form={modalClientFormId} variant="dark" className="px-4">
 							Cadastrar
-						</Button>
-					</Modal.Footer>
-				</Modal.Content>
-			</Modal.Container>
-			{/* Edit Client */}
-			<Modal.Container ref={modalEditClientForm.modalRef}>
-				<Modal.Content>
-					<Modal.Header>
-						<h2 className="text-2xl font-semibold text-zinc-800">
-							Editar Cliente
-						</h2>
-						<Button
-							icon={XIcon}
-							title="Fechar"
-							onClick={() => modalEditClientForm.closeModal()}
-							className="p-0.5 size-5 bg-rose-300 rounded-full"
-						/>
-					</Modal.Header>
-					<ClientForm id={modalClientFormId} data={selectedClient} />
-					<Modal.Footer>
-						<Button
-							className="px-4"
-							variant="outlined"
-							onClick={() => modalEditClientForm.closeModal()}
-						>
-							Cancelar
-						</Button>
-						<Button form={modalClientFormId} variant="dark" className="px-4">
-							Atualizar
 						</Button>
 					</Modal.Footer>
 				</Modal.Content>

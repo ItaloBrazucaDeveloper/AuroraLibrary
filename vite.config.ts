@@ -18,7 +18,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/lib_api': {
-				target: 'http://localhost:8000',
+				target: 'BASE_URL_API',
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/lib_api/, ''),
 			},

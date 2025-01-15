@@ -11,15 +11,13 @@ import { DataTableRow } from './data-table-row';
 
 interface DataTableProps {
 	headers: string[];
-	data?: {}[];
-	hasEnumarate?: boolean;
+	data?: object[];
 	onActionsClicked: (action: 'edit' | 'delete', dataRow: {}) => void;
 }
 
 export function DataTable({
 	headers,
 	data = [],
-	hasEnumarate = false,
 	onActionsClicked,
 }: DataTableProps) {
 	const Fallback = (
@@ -33,11 +31,9 @@ export function DataTable({
 	return (
 		<DataTableContainer>
 			<DataTableHeader>
-				<Show condition={hasEnumarate}>
-					<DataTableField asHeader className="p-1 px-3">
-						#
-					</DataTableField>
-				</Show>
+				<DataTableField asHeader className="p-1 px-3">
+					#
+				</DataTableField>
 				<MapList
 					list={headers}
 					callback={(header) => (
@@ -56,11 +52,9 @@ export function DataTable({
 								key={index}
 								className="rounded-xl hover:scale-[1.01]"
 							>
-								<Show condition={hasEnumarate}>
-									<DataTableField className="first:rounded-l-xl last:rounded-r-xl">
-										{index + 1}
-									</DataTableField>
-								</Show>
+								<DataTableField className="first:rounded-l-xl last:rounded-r-xl">
+									{index + 1}
+								</DataTableField>
 								{Object.values(row).map((field: any, fieldIndex) => (
 									<DataTableField
 										key={fieldIndex}

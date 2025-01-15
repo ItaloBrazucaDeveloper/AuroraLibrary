@@ -13,7 +13,7 @@ export function NavHeader({ toggleNav }: NavHeaderProps) {
 				<Logo />
 				<Button icon={MenuIcon} onClick={toggleNav} className="md:hidden" />
 			</header>
-			<hr className="border-zinc-300/60 mr-2" />
+			<hr className="border-zinc-300/60 mr-2 w-full" />
 		</>
 	);
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { HeaderRoute } from '@components/header-route';
 import { RadioGroup } from '@components/radio-group';
 
+import { Input } from '@components/input';
 import { MapList } from '@components/utils/map-list';
 import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
@@ -37,14 +38,15 @@ export default function Home() {
 						)}
 					/>
 				</RadioGroup.Container>
-				<div className="relative w-11/12 md:w-4/6">
-					<SearchIcon className="absolute -translate-y-1/2 top-1/2 left-3 text-zinc-600" />
-					<input
-						type="text"
+				<Input.Container className="relative w-11/12 md:w-4/6">
+					<Input.Label>
+						<SearchIcon className="absolute -translate-y-1/2 top-1/2 left-3 text-zinc-600" />
+					</Input.Label>
+					<Input.Control
 						placeholder="Procurar livro..."
 						className="outline-none border-none py-3 px-4 w-full rounded-full shadow-sm ring-2 ring-rose-200 focus:ring-rose-300 pl-12"
 					/>
-				</div>
+				</Input.Container>
 			</div>
 		</>
 	);

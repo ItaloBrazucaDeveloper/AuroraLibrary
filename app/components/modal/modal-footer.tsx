@@ -1,7 +1,13 @@
 import { ComponentProps } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type ModalFooterProps = ComponentProps<'footer'>;
 
-export function ModalFooter({ ...props }: ModalFooterProps) {
-	return <footer className='flex justify-end gap-3 mt-auto' {...props} />;
+export function ModalFooter({ className, ...props }: ModalFooterProps) {
+	return (
+		<footer
+			className={twMerge('flex justify-end gap-3 mt-auto', className)}
+			{...props}
+		/>
+	);
 }

@@ -1,6 +1,6 @@
 export const tags = [
 	{
-		id: 'todos',
+		id: 'all',
 		label: 'Todos',
 		color: 'emerald',
 	},

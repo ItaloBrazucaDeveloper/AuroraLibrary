@@ -88,7 +88,6 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 			</div>
 			<hr className="mx-2 my-2" />
 			<DataTable
-				hasEnumarate
 				onActionsClicked={onActionsClicked}
 				headers={['Nome', 'Telefone', 'Email', 'CPF', 'Endereço', 'Ações']}
 				data={clients}
@@ -107,7 +106,7 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
 						/>
 					</Modal.Header>
-					<ClientForm id={modalClientFormId} />
+					<ClientForm id={modalClientFormId} data={selectedClient} />
 					<Modal.Footer>
 						<Button
 							className="px-4"

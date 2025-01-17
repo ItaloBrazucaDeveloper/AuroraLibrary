@@ -1,19 +1,35 @@
 import { Button } from '@components/button';
 import { Input } from '@components/input';
+import { Loading } from '@components/loading';
 
 import { Form, redirect, useNavigation } from 'react-router';
 import { Route } from './+types/index';
 
-import { Loading } from '@components/loading';
 import { Show } from '@components/utils/show';
 import { useFetchApi } from '@hooks/useFetchApi';
+import { LoginSchemaType, loginSchema } from './login-schema';
 
 export async function action({ request }: Route.ActionArgs) {
-	/* 	const api = useFetchApi();
-	const formData = await request.formData();
-	const user = Object.fromEntries(formData);
-	const response = api.post('/users', user); */
-	return redirect('/home');
+	const api = useFetchApi();
+	try {
+		const formData = await request.formData();
+		const user = {
+			login: String(formData.get('login')),
+			password: String(formData.get('password')),
+		};
+
+		const validate = loginSchema.safeParse(user);
+
+		if (validate.success) {
+			const response = await api.post<LoginSchemaType, { token: string }>(
+				'/login',
+				validate.data,
+			);
+			if (response?.token) return redirect('/home');
+		}
+	} catch (error) {
+		throw new Error(`Failed to validate login: ${error}`);
+	}
 }
 
 export default function Login({ actionData }: Route.ComponentProps) {
@@ -36,10 +52,10 @@ export default function Login({ actionData }: Route.ComponentProps) {
 				</header>
 				<div className="grid gap-7 p-4">
 					<Input.Container>
-						<Input.Label id="user">Usuário</Input.Label>
+						<Input.Label id="login">Usuário</Input.Label>
 						<Input.Control
-							id="user"
-							name="name"
+							id="login"
+							name="login"
 							className="py-2"
 							placeholder="ex: Julia.Santos"
 							disabled={isSubmitting}

@@ -1,6 +1,11 @@
 export function useFetchApi() {
-	const baseUrl = '/lib_api';
+	const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+	/**
+	 * Request a some route and return the body of response in json
+	 * @param route string -> Any route of an API, example: /hamburgers
+	 * @return Promise T
+	 */
 	async function get<T>(route: string): Promise<T> {
 		try {
 			const response = await fetch(`${baseUrl}${route}`);
@@ -12,9 +17,15 @@ export function useFetchApi() {
 		}
 	}
 
+	/**
+	 * @param route string -> Any route of an API, example: /hamburgers
+	 * @param data T
+	 * @return Promise R
+	 */
 	async function post<T, R>(route: string, data: T): Promise<R> {
 		try {
 			const response = await fetch(`${baseUrl}${route}`, {
+				credentials: 'include',
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -32,6 +43,7 @@ export function useFetchApi() {
 	async function put<T, R>(route: string, data: T): Promise<R> {
 		try {
 			const response = await fetch(`${baseUrl}${route}`, {
+				credentials: 'include',
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -50,6 +62,7 @@ export function useFetchApi() {
 		try {
 			const response = await fetch(`${baseUrl}${route}`, {
 				method: 'DELETE',
+				credentials: 'include',
 			});
 			if (!response.ok)
 				throw new Error(`HTTP error! status: ${response.status}`);

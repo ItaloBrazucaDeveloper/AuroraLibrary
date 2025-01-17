@@ -1,6 +1,6 @@
 import { resolve } from 'path';
-import { reactRouter } from '@react-router/dev/vite';
 import { defineConfig } from 'vite';
+import { reactRouter } from '@react-router/dev/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,16 +12,7 @@ export default defineConfig({
 			'@hooks': resolve(__dirname, 'app/hooks'),
 			'@services': resolve(__dirname, 'app/services'),
 			'@pages': resolve(__dirname, 'app/pages'),
-			'~types': resolve(__dirname, 'app/types')
-		},
-	},
-	server: {
-		proxy: {
-			'/lib_api': {
-				target: 'BASE_URL_API',
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/lib_api/, ''),
-			},
+			'~types': resolve(__dirname, 'app/types'),
 		},
 	},
 });

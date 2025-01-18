@@ -2,6 +2,7 @@ import {
 	ComponentProps,
 	ElementRef,
 	ReactNode,
+	memo,
 	useEffect,
 	useRef,
 	useState,
@@ -13,32 +14,33 @@ type ImageSourceProps = ComponentProps<'img'> & {
 	fallback?: ReactNode;
 };
 
-export function Image({
-	src,
-	fallback,
-	className,
-	...props
-}: ImageSourceProps) {
-	const [isLoaded, setIsLoaded] = useState<boolean>(false);
-	const imageRef = useRef<ElementRef<'img'>>(null);
+memo(() => {
+	return <></>;
+});
 
-	useEffect(() => {
-		if (imageRef.current) {
-			setIsLoaded(imageRef.current.naturalWidth > 0);
-		}
-	}, [imageRef.current?.complete]);
+export const Image = memo(
+	({ src, fallback, className, ...props }: ImageSourceProps) => {
+		const [isLoaded, setIsLoaded] = useState<boolean>(false);
+		const imageRef = useRef<ElementRef<'img'>>(null);
 
-	return (
-		<div className={twMerge('overflow-hidden', className)}>
-			<Show condition={!isLoaded}>{fallback}</Show>
-			<img
-				src={src}
-				ref={imageRef}
-				onLoad={() => setIsLoaded(true)}
-				onError={() => setIsLoaded(false)}
-				className={!isLoaded ? 'hidden' : 'size-full object-cover'}
-				{...props}
-			/>
-		</div>
-	);
-}
+		useEffect(() => {
+			if (imageRef.current) {
+				setIsLoaded(imageRef.current.naturalWidth > 0);
+			}
+		}, [imageRef.current?.complete]);
+
+		return (
+			<div className={twMerge('overflow-hidden', className)}>
+				<Show condition={!isLoaded}>{fallback}</Show>
+				<img
+					src={src}
+					ref={imageRef}
+					onLoad={() => setIsLoaded(true)}
+					onError={() => setIsLoaded(false)}
+					className={!isLoaded ? 'hidden' : 'size-full object-cover'}
+					{...props}
+				/>
+			</div>
+		);
+	},
+);

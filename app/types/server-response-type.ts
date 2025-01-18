@@ -1,3 +1,8 @@
 export type ServerResponseType = {
-  token?: string;
-}
+	success?: boolean;
+	error?: {
+		message: string;
+	};
+	token?: string;
+	data?: any;
+};

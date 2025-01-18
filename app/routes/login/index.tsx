@@ -13,19 +13,18 @@ export async function action({ request }: Route.ActionArgs) {
 	const api = useFetchApi();
 	try {
 		const formData = await request.formData();
+
 		const user = {
 			login: String(formData.get('login')),
 			password: String(formData.get('password')),
 		};
-
 		const validate = loginSchema.safeParse(user);
 
 		if (validate.success) {
-			const response = await api.post<LoginSchemaType, { token: string }>(
-				'/login',
-				validate.data,
-			);
-			if (response?.token) return redirect('/home');
+			const response = api.post<LoginSchemaType>('/login', validate.data);
+			console.log(response);
+			/* 	if (response?.token) return redirect('/home');
+			return response; */
 		}
 	} catch (error) {
 		throw new Error(`Failed to validate login: ${error}`);
@@ -52,12 +51,13 @@ export default function Login({ actionData }: Route.ComponentProps) {
 				</header>
 				<div className="grid gap-7 p-4">
 					<Input.Container>
-						<Input.Label id="login">Usuário</Input.Label>
+						<Input.Label id="login">Email</Input.Label>
 						<Input.Control
 							id="login"
 							name="login"
+							type="email"
 							className="py-2"
-							placeholder="ex: Julia.Santos"
+							placeholder="ex: juliasants@gmail.com"
 							disabled={isSubmitting}
 						/>
 					</Input.Container>

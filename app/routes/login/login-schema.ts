@@ -1,6 +1,6 @@
 import z from 'zod';
 
-const regexPassword = /[a-zA-Z0-9!@#$%^&*()_+~]{8,20}/;
+const regexPassword = /[a-zA-Z0-9!@#$%^&*()_+~]{5,20}/;
 
 export const loginSchema = z.object({
 	login: z
@@ -10,9 +10,9 @@ export const loginSchema = z.object({
 	password: z
 		.string()
 		.nonempty('Campo vazio. Insira sua senha.')
-		.regex(regexPassword, 'Senha inválida.')
-		.min(8, 'Senha muito curta. Este campo deve ter pelo menos 8 caracteres.')
-		.max(20, 'Senha muito longa. Este campo tem o limite de 20 caracteres.'),
+		.min(5, 'Senha muito curta. Este campo deve ter pelo menos 8 caracteres.')
+		.max(20, 'Senha muito longa. Este campo tem o limite de 20 caracteres.')
+		.regex(regexPassword, 'Senha inválida.'),
 });
 
 export type LoginSchemaType = z.infer<typeof loginSchema>;

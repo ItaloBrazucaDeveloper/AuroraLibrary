@@ -13,9 +13,10 @@ COPY . .
 
 RUN pnpm build
 # Remove dev dependecies
-RUN pnpm prune --production
+RUN pnpm prune --prod
 
 # -----> Running
+
 FROM node:22.13.0-alpine3.21
 WORKDIR /app
 

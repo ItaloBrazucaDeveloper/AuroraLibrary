@@ -1,5 +1,4 @@
-import { type ComponentProps, type FormEvent, useState } from 'react';
-import { ZodError } from 'zod';
+import { type ComponentProps, type FormEvent } from 'react';
 
 import { Input } from '@components/input';
 import { useFetchApi } from '@hooks/useFetchApi';
@@ -12,20 +11,7 @@ type BookFormProps = ComponentProps<'form'> & {
 };
 
 export function BookForm({ data, ...props }: BookFormProps) {
-	const [errorMessage, setErrorMessage] = useState<ZodError | null>(null);
 	const api = useFetchApi();
-
-	function dataValidate(data: BookSchemaType) {
-		const validation = bookSchema.safeParse(data);
-
-		if (validation.success) {
-			console.dir(validation.data);
-			api.post('/books', validation.data);
-		} else {
-			console.error(validation.error.issues);
-			setErrorMessage(validation.error);
-		}
-	}
 
 	function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -39,15 +25,6 @@ export function BookForm({ data, ...props }: BookFormProps) {
 			quantity_books: Number(formData.get('quantity_books')),
 			book_cover: String(formData.get('book_cover')),
 		};
-		dataValidate(dataToSend);
-	}
-
-	function getErrorMessage(inputName: string): string | null {
-		const issue = errorMessage?.issues.find((issue) => {
-			const [fieldName] = issue.path;
-			return fieldName === inputName;
-		});
-		return issue?.message || null;
 	}
 
 	return (
@@ -65,7 +42,6 @@ export function BookForm({ data, ...props }: BookFormProps) {
 					value={data?.title}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('title')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>Autor</Input.Label>
@@ -75,7 +51,6 @@ export function BookForm({ data, ...props }: BookFormProps) {
 					value={data?.author}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('author')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>Editora</Input.Label>
@@ -85,7 +60,6 @@ export function BookForm({ data, ...props }: BookFormProps) {
 					value={data?.publisher}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('publisher')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>Ano</Input.Label>
@@ -95,7 +69,6 @@ export function BookForm({ data, ...props }: BookFormProps) {
 					value={data?.year?.toISOString().split('T')[0]}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('year')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>Quantidade</Input.Label>
@@ -106,7 +79,6 @@ export function BookForm({ data, ...props }: BookFormProps) {
 					value={data?.quantity_books}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('quantity_books')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>Capa do Livro</Input.Label>
@@ -116,7 +88,6 @@ export function BookForm({ data, ...props }: BookFormProps) {
 					value={data?.book_cover}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('book_cover')} />
 			</Input.Container>
 		</form>
 	);

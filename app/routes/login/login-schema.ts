@@ -12,7 +12,7 @@ export const loginSchema = z.object({
 		.nonempty('Campo vazio. Insira sua senha.')
 		.min(5, 'Senha muito curta. Este campo deve ter pelo menos 8 caracteres.')
 		.max(20, 'Senha muito longa. Este campo tem o limite de 20 caracteres.')
-		.regex(regexPassword, 'Senha inválida.'),
+		.regex(regexPassword, 'Formato de senha inválido.'),
 });
 
 export type LoginSchemaType = z.infer<typeof loginSchema>;

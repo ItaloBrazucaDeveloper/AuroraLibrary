@@ -11,7 +11,7 @@ import { DataTableRow } from './data-table-row';
 
 interface DataTableProps {
 	headers: string[];
-	data?: object[];
+	data?: {}[];
 	onActionsClicked: (action: 'edit' | 'delete', dataRow: {}) => void;
 }
 

@@ -1,6 +1,6 @@
 import { Button } from '@components/button';
 import { HeaderRoute } from '@components/header-route';
-import { Image } from '@components/image';
+import { ImageWithFallback } from '@components/image-with-fallback';
 import { ArrowBigLeftDashIcon, HomeIcon } from 'lucide-react';
 import { Link } from 'react-router';
 
@@ -9,7 +9,7 @@ export default function NotFound() {
 		<div>
 			<HeaderRoute routeName="Erro 404" action="..." />
 			<main className="flex flex-wrap justify-center items-center gap-10">
-				<Image
+				<ImageWithFallback
 					alt="Menina procurando uma página do livro"
 					src="/undraw_bibliophile_sbt0.svg"
 					className="w-2/3 md:h-2/3 md:w-auto"

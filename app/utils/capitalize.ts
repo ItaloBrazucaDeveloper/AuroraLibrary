@@ -1,11 +1,11 @@
 /**
  * Capitalize alphabetic characters
- * 
+ *
  * @param string value - Any string.
  * @returns string - A string capitalized.
- * 
+ *
  * @example
- * 
+ *
  * // Usage example
  * const name = 'JuliA sanTos';
  * const captalizedName = capitalize(name);
@@ -13,10 +13,10 @@
  */
 export function capitalize(value: string): string {
 	// '\b', of regex, represents, in this case, a start of expression
-	const getFirstLetterOfWordRegex = /\b\w/g;
+	const getFirstLetterOfWordsRegex = /\b\w/g;
 	const allLowerCase = value.toLowerCase();
 
-	return allLowerCase.replace(getFirstLetterOfWordRegex, (firstLetter) =>
+	return allLowerCase.replace(getFirstLetterOfWordsRegex, (firstLetter) =>
 		firstLetter.toUpperCase(),
 	);
 }

@@ -22,7 +22,8 @@
       "@hooks/*": ["app/hooks/*"],
       "@services/*": ["app/services/*"],
       "@pages/*": ["app/routes/*"],
-      "~types/*": ["app/types/*"]
+      "~types/*": ["app/types/*"],
+      "~app/*": ["app/*"],
     },
     "rootDirs": [".", "./.react-router/types"],
 

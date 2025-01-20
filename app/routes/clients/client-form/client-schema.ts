@@ -1,5 +1,5 @@
-import z from 'zod';
 import { capitalize } from '@utils/capitalize';
+import z from 'zod';
 
 const regex = {
 	name: /[\p{L}\s]+/u,
@@ -49,3 +49,19 @@ export const clientSchema = z.object({
 });
 
 export type ClientSchemaType = z.infer<typeof clientSchema>;
+
+export function validateClient(formData: FormData) {
+	const client: ClientSchemaType = {
+		name: String(formData.get('name')),
+		email: String(formData.get('email')),
+		phone: String(formData.get('phone')),
+		cpf: String(formData.get('cpf')),
+		address: {
+			number: Number(formData.get('number')),
+			cep: String(formData.get('cep')),
+		},
+	};
+
+	const validate = clientSchema.safeParse(client);
+	return validate;
+}

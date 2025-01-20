@@ -12,7 +12,7 @@ import { useModal } from '@hooks/useModal';
 
 import { FilterIcon, SearchIcon, UserPlusIcon, XIcon } from 'lucide-react';
 import { type ReactNode, useId, useState } from 'react';
-import { Route } from './+types';
+import { Route } from './+types/index';
 
 import { ClientAddress } from './client-address';
 
@@ -25,10 +25,11 @@ type DataTableClientsType = Array<
 export async function loader() {
 	try {
 		const api = useFetchApi();
-		const clients = await api.get<ClientType[]>('/users');
-		return clients;
-	} catch (error) {
-		console.error(error);
+		const response = await api.get<ClientType[]>('/users');
+
+		return response;
+	} catch (e) {
+		return { error: { title: (e as Error).message } };
 	}
 }
 
@@ -59,6 +60,7 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 				>
 					Filtros
 				</Button>
+
 				<div className="flex gap-5">
 					<Input.Container flowDirection="row" className="items-center gap-2">
 						<Input.Label
@@ -86,14 +88,15 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 					</Button>
 				</div>
 			</div>
+
 			<hr className="mx-2 my-2" />
 			<DataTable
 				onActionsClicked={onActionsClicked}
 				headers={['Nome', 'Telefone', 'Email', 'CPF', 'Endereço', 'Ações']}
-				data={clients}
+				data={clients?.success?.data}
 			/>
-			{/* Client Form - Create|Edit */}
-			<Modal.Container ref={modalClientForm.modalRef}>
+
+			<Modal.Container open={modalClientForm.isOpen}>
 				<Modal.Content>
 					<Modal.Header>
 						<h2 className="text-2xl font-semibold text-zinc-800">
@@ -121,8 +124,8 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 					</Modal.Footer>
 				</Modal.Content>
 			</Modal.Container>
-			{/* Delete Client */}
-			<Modal.Container ref={modalDeleteClient.modalRef}>
+
+			<Modal.Container open={modalDeleteClient.isOpen}>
 				<Modal.Content>
 					<Modal.Header>
 						Este cliente será excluído. Deseja continuar?

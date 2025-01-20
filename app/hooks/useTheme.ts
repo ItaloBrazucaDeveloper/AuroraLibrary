@@ -1,9 +1,18 @@
+import { MoonStarIcon, SunDimIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 type StateThemeType = 'light' | 'dark' | 'system';
 
 export function useTheme() {
-	const [theme, setTheme] = useState<StateThemeType>('system');
+	const initalState = {
+		actualTheme: 'light',
+		nextTheme: {
+			icon: MoonStarIcon,
+			text: 'Escuro',
+		},
+	};
+
+	const [theme, setTheme] = useState(initalState);
 
 	useEffect(() => {
 		const isDarkMode =
@@ -17,7 +26,15 @@ export function useTheme() {
 	}, [theme]);
 
 	function changeTheme(theme: StateThemeType) {
-		setTheme(theme);
+		const themeIsLight = theme === 'light';
+
+		setTheme({
+			actualTheme: theme,
+			nextTheme: {
+				icon: themeIsLight ? MoonStarIcon : SunDimIcon,
+				text: themeIsLight ? 'Escuro' : 'Claro',
+			},
+		});
 	}
 
 	return {

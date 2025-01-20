@@ -3,7 +3,7 @@ import { ComponentProps, ComponentType } from 'react';
 import { tv } from 'tailwind-variants';
 
 export type ButtonProps = ComponentProps<'button'> & {
-	variant?: 'dark' | 'outlined';
+	variant?: 'dark' | 'outlined' | 'no-border';
 	icon?: ComponentType<LucideProps>;
 };
 
@@ -16,6 +16,7 @@ const button = tv({
 		theme: {
 			dark: 'bg-zinc-800 text-zinc-100',
 			outlined: 'bg-none ring ring-1 ring-zinc-300',
+			'no-border': 'ring-none'
 		},
 	},
 });

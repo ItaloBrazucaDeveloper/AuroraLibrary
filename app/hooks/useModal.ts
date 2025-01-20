@@ -1,18 +1,18 @@
-import { ElementRef, useRef } from 'react';
+import { useState } from 'react';
 
 export function useModal() {
-	const modalRef = useRef<ElementRef<'dialog'>>(null);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	function openModal() {
-		modalRef.current?.showModal();
+		setIsOpen(true);
 	}
 
 	function closeModal() {
-		modalRef.current?.close();
+		setIsOpen(false);
 	}
 
 	return {
-		modalRef,
+		isOpen,
 		openModal,
 		closeModal,
 	};

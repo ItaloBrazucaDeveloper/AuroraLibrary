@@ -1,21 +1,11 @@
 import { Button } from '@components/button';
-import { MoonStarIcon, SunDimIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useTheme } from '@hooks/useTheme';
 
 export function ChangeTheme() {
-	const [theme, setTheme] = useState<'light' | 'dark'>('light');
-
-	let nextTheme = {
-		text: 'Escuro',
-		icon: MoonStarIcon,
-	};
-
-	if (theme === 'dark') {
-		nextTheme = {
-			text: 'Claro',
-			icon: SunDimIcon,
-		};
-	}
+	const {
+		theme: { actualTheme, nextTheme },
+		changeTheme,
+	} = useTheme();
 
 	return (
 		<div className="space-y-3 mb-5 text-zinc-200">
@@ -23,8 +13,9 @@ export function ChangeTheme() {
 				Mudar tema
 			</span>
 			<Button
-				variant="dark"
+				variant={actualTheme === 'light' ? 'dark' : 'outlined'}
 				icon={nextTheme.icon}
+				onClick={() => changeTheme(actualTheme === 'light' ? 'dark' : 'light')}
 				className="rounded-xl py-2 px-4 w-full"
 			>
 				{nextTheme.text}

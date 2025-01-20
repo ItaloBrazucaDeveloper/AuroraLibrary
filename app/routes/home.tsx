@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { HeaderRoute } from '@components/header-route';
 import { RadioGroup } from '@components/radio-group';
-
 import { Input } from '@components/input';
+
 import { MapList } from '@components/utils/map-list';
 import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
@@ -12,6 +12,7 @@ export default function Home() {
 	const [selectedCategory, setSelectedCategory] = useState<string>(
 		tags[0].label,
 	);
+	
 	return (
 		<>
 			<HeaderRoute routeName="Home" action="Olá, Júlia!" />
@@ -40,7 +41,7 @@ export default function Home() {
 				</RadioGroup.Container>
 				<Input.Container className="relative w-11/12 md:w-4/6">
 					<Input.Label>
-						<SearchIcon className="absolute -translate-y-1/2 top-1/2 left-3 text-zinc-600" />
+						<SearchIcon className="absolute -translate-y-1/2 bottom-0 left-3 text-zinc-600" />
 					</Input.Label>
 					<Input.Control
 						placeholder="Procurar livro..."

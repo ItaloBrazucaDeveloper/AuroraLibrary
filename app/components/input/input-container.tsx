@@ -1,5 +1,6 @@
 import { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { InputContext, getProviders } from './input-context';
 
 type InputContainerProps = ComponentProps<'div'> & {
 	flowDirection?: 'row' | 'col';
@@ -10,13 +11,17 @@ export function InputContainer({
 	className,
 	...props
 }: InputContainerProps) {
+	const providers = getProviders();
+	
 	return (
-		<div
-			className={twMerge(
-				`relative flex flex-${flowDirection} gap-2`,
-				className,
-			)}
-			{...props}
-		/>
+		<InputContext.Provider value={providers}>
+			<div
+				className={twMerge(
+					`relative flex flex-${flowDirection} gap-2`,
+					className,
+				)}
+				{...props}
+			/>
+		</InputContext.Provider>
 	);
 }

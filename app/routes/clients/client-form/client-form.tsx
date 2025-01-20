@@ -1,63 +1,34 @@
-import { type ComponentProps, type FormEvent, useState } from 'react';
-import { ZodError } from 'zod';
+import { type ComponentProps } from 'react';
 
 import { Input } from '@components/input';
 import { useFetchApi } from '@hooks/useFetchApi';
 
-import { type ClientSchemaType, clientSchema } from './client-schema';
+import { Route } from '../+types/index';
+import { type ClientSchemaType, validateClient } from './client-schema';
 
 type ClientFormProps = ComponentProps<'form'> & {
 	data?: ClientSchemaType;
 };
 
-export function ClientForm({ data, ...props }: ClientFormProps) {
-	const [errorMessage, setErrorMessage] = useState<ZodError | null>(null);
+export async function action({ request }: Route.ActionArgs) {
 	const api = useFetchApi();
+	const formData = await request.formData();
+	const validate = validateClient(formData);
 
-	function dataValidate(data: ClientSchemaType) {
-		const validation = clientSchema.safeParse(data);
+	if (validate.success) {
+		const response = await api.post('/users', validate.data);
 
-		if (validation.success) {
-			console.dir(validation.data);
-			api.post('/users', validation.data);
-		} else {
-			console.error(validation.error.issues);
-			setErrorMessage(validation.error);
+		if (response.success) {
+			return;
 		}
 	}
 
-	function handleSubmitForm(e: FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-		const formData = new FormData(e.currentTarget);
+	return;
+}
 
-		const dataToSend: ClientSchemaType = {
-			name: String(formData.get('name')),
-			email: String(formData.get('email')),
-			phone: String(formData.get('phone')),
-			cpf: String(formData.get('cpf')),
-			address: {
-				number: Number(formData.get('number')),
-				cep: String(formData.get('cep')),
-			},
-		};
-		dataValidate(dataToSend);
-	}
-
-	function getErrorMessage(inputName: string): string | null {
-		const issue = errorMessage?.issues.find((issue) => {
-			const [fieldName] = issue.path;
-			return fieldName === inputName;
-		});
-		return issue?.message || null;
-	}
-
+export function ClientForm({ data, ...props }: ClientFormProps) {
 	return (
-		<form
-			method="dialog"
-			onSubmit={handleSubmitForm}
-			className="flex flex-col gap-5"
-			{...props}
-		>
+		<form method="dialog" className="flex flex-col gap-5" {...props}>
 			<Input.Container>
 				<Input.Label>Nome</Input.Label>
 				<Input.Control
@@ -66,7 +37,6 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 					value={data?.name}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('name')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>Email</Input.Label>
@@ -76,7 +46,6 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 					value={data?.email}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('email')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>Telefone</Input.Label>
@@ -86,7 +55,6 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 					value={data?.phone}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('phone')} />
 			</Input.Container>
 			<Input.Container>
 				<Input.Label>CPF</Input.Label>
@@ -96,7 +64,6 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 					value={data?.cpf}
 					className="py-2"
 				/>
-				<Input.ErrorMessage message={getErrorMessage('cpf')} />
 			</Input.Container>
 			<fieldset>
 				<header className="space-y-2 mb-3">
@@ -112,7 +79,6 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 							value={data?.address?.cep}
 							className="py-2"
 						/>
-						<Input.ErrorMessage message={getErrorMessage('cep')} />
 					</Input.Container>
 					<Input.Container>
 						<Input.Label>Número</Input.Label>
@@ -123,7 +89,6 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 							value={data?.address?.number}
 							className="py-2"
 						/>
-						<Input.ErrorMessage message={getErrorMessage('number')} />
 					</Input.Container>
 				</div>
 			</fieldset>

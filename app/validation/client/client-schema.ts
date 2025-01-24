@@ -1,12 +1,6 @@
 import { capitalize } from '@utils/capitalize';
+import { regex } from '@utils/regex';
 import z from 'zod';
-
-const regex = {
-	name: /[\p{L}\s]+/u,
-	phone: /\(\d{2}\)(\s9.|\s)[0-9]{4}-[0-9]{4}/,
-	cpf: /[0-9]{3}\.[0-9]{3}.[0-9]{3}-[0-9]{2}/,
-	cep: /[0-9]{2}[0-9]{3}-[0-9]{3}/,
-};
 
 export const clientSchema = z.object({
 	name: z
@@ -47,21 +41,3 @@ export const clientSchema = z.object({
 			),
 	}),
 });
-
-export type ClientSchemaType = z.infer<typeof clientSchema>;
-
-export function validateClient(formData: FormData) {
-	const client: ClientSchemaType = {
-		name: String(formData.get('name')),
-		email: String(formData.get('email')),
-		phone: String(formData.get('phone')),
-		cpf: String(formData.get('cpf')),
-		address: {
-			number: Number(formData.get('number')),
-			cep: String(formData.get('cep')),
-		},
-	};
-
-	const validate = clientSchema.safeParse(client);
-	return validate;
-}

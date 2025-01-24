@@ -5,15 +5,12 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install -g pnpm@latest-10
-RUN pnpm install
-
 # Copy the rest of the files to the container
 COPY . .
 
-RUN pnpm build
+RUN npm build
 # Remove dev dependecies
-RUN pnpm prune --prod
+RUN pnpm prune --production
 
 # -----> Running
 
@@ -28,4 +25,4 @@ COPY --from=builder /app/react-router.config.ts ./
 COPY --from=builder /app/public ./public
 
 EXPOSE 5173
-CMD ["pnpm", "preview"]
+CMD ["npm", "start"]

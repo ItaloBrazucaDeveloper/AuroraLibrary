@@ -3,10 +3,10 @@ import { Input } from '@components/input';
 import { SpinLoading } from '@components/loading/spin';
 
 import { Form, data, redirect, useNavigation } from 'react-router';
-import { Route } from './+types/index';
+import { Route } from './+types/login';
 
 import { Show } from '@components/utils/show';
-import { validateLogin } from './login-validate';
+import { validateLogin } from '~validation/auth';
 
 import { Alert } from '@components/alert';
 import { AlertOctagonIcon } from 'lucide-react';

@@ -21,7 +21,7 @@
       "@utils/*": ["app/utils/*"],
       "@hooks/*": ["app/hooks/*"],
       "@services/*": ["app/services/*"],
-      "@pages/*": ["app/routes/*"],
+      "~validation/*": ["app/validation/*"],
       "~types/*": ["app/types/*"],
       "~app/*": ["app/*"],
     },

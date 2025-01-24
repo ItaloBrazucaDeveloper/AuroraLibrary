@@ -3,7 +3,7 @@ import { type RouteConfig, layout, route } from '@react-router/dev/routes';
 // * matches all URLs, the ? makes it optional so it will match / as well
 export default [
 	layout('./layouts/auth.layout.tsx', [
-		route('/', './routes/login/index.tsx'),
+		route('/', './routes/login.tsx'),
 	]),
 
 	layout('./layouts/workspace.layout.tsx', [

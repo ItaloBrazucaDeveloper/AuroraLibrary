@@ -11,7 +11,7 @@ export default defineConfig({
 			'@utils': resolve(__dirname, 'app/utils'),
 			'@hooks': resolve(__dirname, 'app/hooks'),
 			'@services': resolve(__dirname, 'app/services'),
-			'@pages': resolve(__dirname, 'app/pages'),
+			'~validation': resolve(__dirname, 'app/validation'),
 			'~types': resolve(__dirname, 'app/types'),
 			'~app': resolve(__dirname, 'app/'),
 		},

@@ -1,10 +1,5 @@
 type SuccessResponseServer<T> = {
 	data: T;
-	_links?: {
-		self: {
-			href: string;
-		};
-	};
 	page?: {
 		size: number;
 		totalElements: number;

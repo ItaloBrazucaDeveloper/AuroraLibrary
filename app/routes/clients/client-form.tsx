@@ -3,8 +3,8 @@ import { type ComponentProps } from 'react';
 import { Input } from '@components/input';
 import { useFetchApi } from '@hooks/useFetchApi';
 
-import { Route } from '../+types/index';
-import { type ClientSchemaType, validateClient } from './client-schema';
+import { Route } from './+types/index';
+import { type ClientSchemaType, validateClient } from '~validation/client';
 
 type ClientFormProps = ComponentProps<'form'> & {
 	data?: ClientSchemaType;
@@ -13,10 +13,10 @@ type ClientFormProps = ComponentProps<'form'> & {
 export async function action({ request }: Route.ActionArgs) {
 	const api = useFetchApi();
 	const formData = await request.formData();
-	const validate = validateClient(formData);
+	const { success } = validateClient(formData);
 
-	if (validate.success) {
-		const response = await api.post('/users', validate.data);
+	if (success) {
+		const response = await api.post('/users', success.data);
 
 		if (response.success) {
 			return;

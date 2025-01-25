@@ -6,7 +6,7 @@ import { Form, data, redirect, useNavigation } from 'react-router';
 import { Route } from './+types/login';
 
 import { Show } from '@components/utils/show';
-import { validateLogin } from '~validation/auth';
+import { validateLogin } from '~validation/login';
 
 import { Alert } from '@components/alert';
 import { AlertOctagonIcon } from 'lucide-react';

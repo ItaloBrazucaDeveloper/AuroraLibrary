@@ -1,22 +1,17 @@
-import { type ComponentProps } from 'react';
-
 import { Input } from '@components/input';
 import { useFetchApi } from '@hooks/useFetchApi';
 
 import { Route } from './+types/index';
-import { type ClientSchemaType, validateClient } from '~validation/client';
-
-type ClientFormProps = ComponentProps<'form'> & {
-	data?: ClientSchemaType;
-};
+import { ClientSchemaType, validateClient } from '~validation/client';
+import { Form } from 'react-router';
 
 export async function action({ request }: Route.ActionArgs) {
 	const api = useFetchApi();
 	const formData = await request.formData();
-	const { success } = validateClient(formData);
+	const validate = validateClient(formData);
 
-	if (success) {
-		const response = await api.post('/users', success.data);
+	if (validate.success) {
+		const response = await api.post('/users', validate.success.data);
 
 		if (response.success) {
 			return;
@@ -26,15 +21,15 @@ export async function action({ request }: Route.ActionArgs) {
 	return;
 }
 
-export function ClientForm({ data, ...props }: ClientFormProps) {
+export function ClientForm({ data: client }: { data: ClientSchemaType }) {
 	return (
-		<form method="dialog" className="flex flex-col gap-5" {...props}>
+		<Form method='POST' className="flex flex-col gap-5">
 			<Input.Container>
 				<Input.Label>Nome</Input.Label>
 				<Input.Control
 					name="name"
 					placeholder="ex: João Da Dilva"
-					value={data?.name}
+					defaultValue={client?.name}
 					className="py-2"
 				/>
 			</Input.Container>
@@ -43,7 +38,7 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 				<Input.Control
 					name="email"
 					placeholder="ex: jo123@gmail.com"
-					value={data?.email}
+					defaultValue={client?.email}
 					className="py-2"
 				/>
 			</Input.Container>
@@ -52,8 +47,9 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 				<Input.Control
 					name="phone"
 					placeholder="ex: (61) 9.9999-9999"
-					value={data?.phone}
+					defaultValue={client?.phone}
 					className="py-2"
+					inputMask='(##) #.####-####'
 				/>
 			</Input.Container>
 			<Input.Container>
@@ -61,23 +57,22 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 				<Input.Control
 					name="cpf"
 					placeholder="ex: 000.000.000-00"
-					value={data?.cpf}
+					defaultValue={client?.cpf}
 					className="py-2"
+					inputMask='###.###.###-##'
 				/>
 			</Input.Container>
 			<fieldset>
-				<header className="space-y-2 mb-3">
-					<span className="text-zinc-500">Endereço</span>
-					<hr />
-				</header>
+				<span className="text-zinc-500">Endereço</span>
 				<div className="flex gap-5">
 					<Input.Container>
 						<Input.Label>CEP</Input.Label>
 						<Input.Control
 							name="cep"
 							placeholder="ex: 00.000-000"
-							value={data?.address?.cep}
+							defaultValue={client?.address?.cep}
 							className="py-2"
+							inputMask='#####-##'
 						/>
 					</Input.Container>
 					<Input.Container>
@@ -86,12 +81,12 @@ export function ClientForm({ data, ...props }: ClientFormProps) {
 							name="number"
 							type="number"
 							placeholder="ex: 15"
-							value={data?.address?.number}
+							defaultValue={client?.address?.number}
 							className="py-2"
 						/>
 					</Input.Container>
 				</div>
 			</fieldset>
-		</form>
+		</Form>
 	);
 }

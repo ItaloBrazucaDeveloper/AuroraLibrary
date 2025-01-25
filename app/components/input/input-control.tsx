@@ -27,6 +27,10 @@ export const InputControl = forwardRef<HTMLInputElement, InputControlProps>(
 	({ className, icon: Icon, inputMask, error, ...props }, ref) => {
 		const { inputId } = getContext();
 
+		function applyMask() {
+			
+		}
+
 		return (
 			<>
 				<input

@@ -11,38 +11,43 @@ import { useFetchApi } from '@hooks/useFetchApi';
 import { useModal } from '@hooks/useModal';
 
 import { FilterIcon, SearchIcon, UserPlusIcon, XIcon } from 'lucide-react';
-import { type ReactNode, useId, useState } from 'react';
 import { Route } from './+types/index';
-
+import { getSession } from '~app/sessions.server';
 import { ClientAddress } from './client-address';
 
-type DataTableClientsType = Array<
-	Omit<ClientType, 'id_user' | 'address'> & {
-		Address: ReactNode;
-	}
->;
+export async function loader({ params, request }: Route.LoaderArgs) {
+	const api = useFetchApi();
+	const getById = !!params.clientId;
 
-export async function loader() {
-	try {
-		const api = useFetchApi();
-		const response = await api.get<ClientType[]>('/users');
+	const session = await getSession(request.headers.get('Cookie'));
+	const token = session.get('token') ?? '';
 
-		return response;
-	} catch (e) {
-		return { error: { title: (e as Error).message } };
+	if (getById) {
+		const client = await api.get<ClientType[]>(`/clients/${params.clientId}`, token);
+		return client;
 	}
+
+	const response = await api.get<ClientType[]>('/clients', token);
+
+	if (response.success) {
+		const clients = response.success.data;
+
+		return clients.map(({ address: { cep, number, id_address, ...rest }, ...props }) => {
+			return {
+				...props,
+				address: <ClientAddress {...rest} />
+			}
+		});
+	}
+	
 }
 
-export default function Clients({ loaderData: clients }: Route.ComponentProps) {
-	const [selectedClient, setSelectedClient] = useState<ClientType>();
-
-	const modalClientFormId = useId();
+export default function Clients({ loaderData }: Route.ComponentProps) {
 	const modalClientForm = useModal();
 	const modalDeleteClient = useModal();
 
-	function onActionsClicked(action: 'edit' | 'delete', dataRow: {}) {
+	function onActionsClicked(action: 'edit' | 'delete') {
 		if (action === 'edit') {
-			setSelectedClient(dataRow as ClientType);
 			modalClientForm.openModal();
 		} else if (action === 'delete') {
 			modalDeleteClient.openModal();
@@ -82,7 +87,7 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 						icon={UserPlusIcon}
 						title="Cadastrar cliente"
 						onClick={() => modalClientForm.openModal()}
-						className="p-4 absolute bottom-0 right-0 m-8 rounded-full md:m-0 md:px-4 md:py-1 md:rounded-md md:relative"
+						className="p-4 absolute bottom-0 right-0 m-8 rounded-full md:m-0 md:px-4 md:py-1 md:rounded-lg md:relative"
 					>
 						<span className="hidden md:block">Cadastrar cliente</span>
 					</Button>
@@ -93,7 +98,7 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 			<DataTable
 				onActionsClicked={onActionsClicked}
 				headers={['Nome', 'Telefone', 'Email', 'CPF', 'Endereço', 'Ações']}
-				data={clients?.success?.data}
+				data={loaderData}
 			/>
 
 			<Modal.Container open={modalClientForm.isOpen}>
@@ -109,7 +114,7 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
 						/>
 					</Modal.Header>
-					<ClientForm id={modalClientFormId} data={selectedClient} />
+					<ClientForm data={loaderData} />
 					<Modal.Footer>
 						<Button
 							className="px-4"
@@ -118,7 +123,7 @@ export default function Clients({ loaderData: clients }: Route.ComponentProps) {
 						>
 							Cancelar
 						</Button>
-						<Button form={modalClientFormId} variant="dark" className="px-4">
+						<Button variant="dark" className="px-4">
 							Cadastrar
 						</Button>
 					</Modal.Footer>

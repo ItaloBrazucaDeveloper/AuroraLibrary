@@ -1,9 +1,29 @@
-import { ComponentProps } from 'react';
+import { tv, VariantProps } from 'tailwind-variants';
 
-type SkeletonLoadingProps = ComponentProps<'div'> & {
-	
-};
+const skeletonLoading = tv({
+	base: '',
+	variants: {
+		format: {
+			circle: '',
+			square: '',
+			text: '',
+		},
+		size: {
+			xs: '',
+			sm: '',
+			lg: '',
+			xl: '',
+		},
+	},
+	compoundVariants: [
+		{
+			
+		}
+	]
+});
 
-export function SkeletonLoading({ ...props }: SkeletonLoadingProps) {
-	return <div className='' />;
+type SkeletonLoadingProps = VariantProps<typeof skeletonLoading>;
+
+export function SkeletonLoading({ size, format }: SkeletonLoadingProps) {
+	return <div className={skeletonLoading({ format, size })} />;
 }

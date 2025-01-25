@@ -23,6 +23,6 @@ export function validateClient(formData: FormData) {
   }
 
   return {
-    zodError: validate.error
+    issues: validate.error.issues
   };
 }

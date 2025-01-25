@@ -9,7 +9,7 @@ export default [
 	layout('./layouts/workspace.layout.tsx', [
 		route('/home', './routes/home.tsx'),
 		route('/books', './routes/books/index.tsx'),
-		route('/clients', './routes/clients/index.tsx'),
+		route('/clients/:clientId?', './routes/clients/index.tsx'),
 		route('/loans', './routes/loans/index.tsx'),
 	]),
 

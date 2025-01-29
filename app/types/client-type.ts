@@ -1,7 +1,7 @@
 import { AddressType } from './address-type';
 
 export type ClientType = {
-	id_user: number;
+	id: number;
 	name: string;
 	phone: string;
 	email: string;

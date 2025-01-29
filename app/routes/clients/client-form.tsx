@@ -1,29 +1,10 @@
 import { Input } from '@components/input';
-import { useFetchApi } from '@hooks/useFetchApi';
-
-import { Route } from './+types/index';
-import { ClientSchemaType, validateClient } from '~validation/client';
 import { Form } from 'react-router';
+import { ClientSchemaType } from '~validation/client';
 
-export async function action({ request }: Route.ActionArgs) {
-	const api = useFetchApi();
-	const formData = await request.formData();
-	const validate = validateClient(formData);
-
-	if (validate.success) {
-		const response = await api.post('/users', validate.success.data);
-
-		if (response.success) {
-			return;
-		}
-	}
-
-	return;
-}
-
-export function ClientForm({ data: client }: { data: ClientSchemaType }) {
+export function ClientForm({ client }: { client?: ClientSchemaType }) {
 	return (
-		<Form method='POST' className="flex flex-col gap-5">
+		<Form method="post" className="flex flex-col gap-5">
 			<Input.Container>
 				<Input.Label>Nome</Input.Label>
 				<Input.Control

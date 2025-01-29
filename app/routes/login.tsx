@@ -34,31 +34,6 @@ export async function loader({ request }: Route.LoaderArgs) {
 	);
 }
 
-export async function action({ request }: Route.ActionArgs) {
-	const session = await getSession(request.headers.get('Cookie'));
-	const formData = await request.formData();
-
-	const { success, error } = await validateLogin(formData);
-
-	if (success) {
-		session.set('token', success.token);
-
-		return redirect('/home', {
-			headers: {
-				'Set-Cookie': await commitSession(session),
-			},
-		});
-	}
-
-	session.flash('error', JSON.stringify(error));
-
-	return redirect('/', {
-		headers: {
-			'Set-Cookie': await commitSession(session),
-		},
-	});
-}
-
 export default function Login({ loaderData: { error } }: Route.ComponentProps) {
 	const navigation = useNavigation();
 	const isSubmitting = navigation.formAction === '/';
@@ -124,4 +99,29 @@ export default function Login({ loaderData: { error } }: Route.ComponentProps) {
 			</Form>
 		</div>
 	);
+}
+
+export async function action({ request }: Route.ActionArgs) {
+	const session = await getSession(request.headers.get('Cookie'));
+	const formData = await request.formData();
+
+	const { success, error } = await validateLogin(formData);
+
+	if (success) {
+		session.set('token', success.token);
+
+		return redirect('/home', {
+			headers: {
+				'Set-Cookie': await commitSession(session),
+			},
+		});
+	}
+
+	session.flash('error', JSON.stringify(error));
+
+	return redirect('/', {
+		headers: {
+			'Set-Cookie': await commitSession(session),
+		},
+	});
 }

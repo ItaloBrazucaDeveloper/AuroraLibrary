@@ -1,5 +1,5 @@
 export type LoanType = {
-  id_loan: number;
+  id: number;
   loan_date: string;
   limit_date: string;
   delivery_date: string;

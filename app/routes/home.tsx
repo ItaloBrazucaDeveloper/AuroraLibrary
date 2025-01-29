@@ -8,11 +8,23 @@ import { MapList } from '@components/utils/map-list';
 import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
 
+import { Route } from './+types/home';
+import { getSession } from '~app/sessions.server';
+import { redirect } from 'react-router';
+
+export async function loader({ request }: Route.LoaderArgs) {
+	const session = await getSession(request.headers.get('Cookie'));
+	
+	if (!session.has('token')) {
+		return redirect('/');
+	}
+}
+
 export default function Home() {
 	const [selectedCategory, setSelectedCategory] = useState<string>(
 		tags[0].label,
 	);
-	
+
 	return (
 		<>
 			<HeaderRoute routeName="Home" action="Olá, Júlia!" />

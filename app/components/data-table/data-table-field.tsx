@@ -13,6 +13,6 @@ export function DataTableField({
 	const TableField = asHeader ? 'th' : 'td';
 
 	return (
-		<TableField className={twMerge('text-left p-3', className)} {...props} />
+		<TableField className={twMerge('border text-left p-3', className)} {...props} />
 	);
 }

@@ -8,7 +8,7 @@ export function DataTableRow({ className, ...props }: DataTableRowProps) {
 		<tr
 			{...props}
 			className={twMerge(
-				'hover:bg-zinc-100 hover:ring-1 hover:ring-zinc-300 overflow-hidden transition-all',
+				'hover:bg-zinc-50 transition-all',
 				className,
 			)}
 		/>

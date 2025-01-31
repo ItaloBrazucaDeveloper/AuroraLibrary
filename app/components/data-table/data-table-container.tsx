@@ -8,9 +8,9 @@ export function DataTableContainer({
 	...props
 }: DataTableContainerProps) {
 	return (
-		<div className="m-3 p-3 ring-1 ring-zinc-200 rounded-lg overflow-x-auto">
+		<div className="m-3 overflow-x-auto">
 			<table
-				className={twMerge('border-collapse w-full', className)}
+				className={twMerge('border-collapse shadow rounded-lg overflow-hidden w-full', className)}
 				{...props}
 			/>
 		</div>

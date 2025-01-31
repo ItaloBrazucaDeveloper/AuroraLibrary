@@ -1,5 +1,6 @@
 import { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { DataTableRow } from './data-table-row';
 
 type DataTableHeaderProps = ComponentProps<'thead'>;
 
@@ -10,13 +11,10 @@ export function DataTableHeader({
 }: DataTableHeaderProps) {
 	return (
 		<thead
-			className={twMerge(
-				className,
-				'text-zinc-500/70 text-sm border-b border-zinc-200/80',
-			)}
+			className={twMerge(className, 'text-zinc-500/70')}
 			{...props}
 		>
-			<tr>{children}</tr>
+			<DataTableRow className='hover:bg-none bg-zinc-50'>{children}</DataTableRow>
 		</thead>
 	);
 }

@@ -14,7 +14,7 @@ export function Layout({
 				<Meta />
 				<Links />
 			</head>
-			<body>
+			<body className="antialiased">
 				{children}
 				<ScrollRestoration />
 				<Scripts />

@@ -1,46 +1,39 @@
-import { LucideProps } from 'lucide-react';
-import { ComponentProps, ComponentType, forwardRef } from 'react';
-
-import { tv } from 'tailwind-variants';
+import { ComponentProps, forwardRef } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { VariantProps, tv } from 'tailwind-variants';
 import { getContext } from './input-context';
-import { InputErrorMessage } from './input-error-message';
 
-type InputControlProps = ComponentProps<'input'> & {
-	inputMask?: string;
-	icon?: ComponentType<LucideProps>;
-	error?: string | null;
-};
+type InputControlProps = {
+	mask?: string;
+} & ComponentProps<'input'> &
+	VariantProps<typeof inputControl>;
 
 const inputControl = tv({
 	base: [
-		'border-0 outline outline-1 outline-zinc-300 bg-none rounded-md px-3 py-1 w-full',
-		'focus:ring-2 focus:ring-zinc-300',
+		'outline outline-1 outline-zinc-300 shadow',
+		'focus-within:outline focus-within:outline-2 focus-within:outline-zinc-300',
+		'w-full rounded-lg overflow-hidden px-3 py-1',
 	],
 	variants: {
-		danger: {
-			true: 'ring-2 ring-rose-500',
+		outline: {
+			danger: 'outline-rose-500',
 		},
 	},
 });
 
 export const InputControl = forwardRef<HTMLInputElement, InputControlProps>(
-	({ className, icon: Icon, inputMask, error, ...props }, ref) => {
+	({ className, mask, outline, ...props }, ref) => {
 		const { inputId } = getContext();
 
-		function applyMask() {
-			
-		}
-
 		return (
-			<>
+			<div className={inputControl({ outline, className })}>
 				<input
 					ref={ref}
 					id={inputId}
-					className={inputControl({ danger: !!error, className })}
+					className="border-0 outline-0 bg-none size-full"
 					{...props}
 				/>
-				{error && <InputErrorMessage message={error} />}
-			</>
+			</div>
 		);
 	},
 );

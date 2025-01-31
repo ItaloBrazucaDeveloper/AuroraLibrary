@@ -1,27 +1,29 @@
 import { ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { VariantProps, tv } from 'tailwind-variants';
 import { InputContext, getProviders } from './input-context';
 
-type InputContainerProps = ComponentProps<'div'> & {
-	flowDirection?: 'row' | 'col';
-};
+type InputContainerProps = ComponentProps<'div'> &
+	VariantProps<typeof inputContainer>;
+
+const inputContainer = tv({
+	base: 'relative flex flex-col gap-2 rounded-lg w-full md:max-w-96',
+	variants: {
+		rowDirection: {
+			true: 'flex-row',
+		},
+	},
+});
 
 export function InputContainer({
-	flowDirection = 'col',
+	rowDirection = false,
 	className,
 	...props
 }: InputContainerProps) {
 	const providers = getProviders();
-	
+
 	return (
 		<InputContext.Provider value={providers}>
-			<div
-				className={twMerge(
-					`relative flex flex-${flowDirection} gap-2`,
-					className,
-				)}
-				{...props}
-			/>
+			<div className={inputContainer({ rowDirection, className })} {...props} />
 		</InputContext.Provider>
 	);
 }

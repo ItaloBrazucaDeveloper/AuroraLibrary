@@ -11,7 +11,12 @@ export function NavHeader({ toggleNav }: NavHeaderProps) {
 		<>
 			<header className="flex items-center justify-between gap-3 px-2 py-3 pb-4">
 				<Logo />
-				<Button variant='no-border' icon={MenuIcon} onClick={toggleNav} className="md:hidden" />
+				<Button
+					variant="no-border"
+					icon={MenuIcon}
+					onClick={toggleNav}
+					className="md:hidden"
+				/>
 			</header>
 			<hr className="border-zinc-300/60 mr-2 w-full" />
 		</>

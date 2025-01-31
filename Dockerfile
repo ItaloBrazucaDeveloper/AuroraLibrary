@@ -3,12 +3,16 @@
 FROM node:22.13.0-alpine3.21 as builder
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
+COPY pnpm-lock.yaml
+
+RUN corepack install pnpm
+RUN corepack pnpm install
 
 # Copy the rest of the files to the container
 COPY . .
 
-RUN npm build
+RUN corepackn pnpm build
 # Remove dev dependecies
 RUN pnpm prune --production
 
@@ -25,4 +29,4 @@ COPY --from=builder /app/react-router.config.ts ./
 COPY --from=builder /app/public ./public
 
 EXPOSE 5173
-CMD ["npm", "start"]
+CMD ["pnpm", "start"]

@@ -2,8 +2,7 @@ import { Route } from "./+types/route";
 import { BooksPage } from "./page";
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  console.log(request, params);
-
+  console.dir(request.formData);
   return {
     books: [],
     book: {

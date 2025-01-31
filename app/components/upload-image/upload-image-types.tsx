@@ -3,5 +3,5 @@ type UploadImageTypesProps = {
 };
 
 export function UploadImageTypes({ types }: UploadImageTypesProps) {
-  return <span>Formatos permitidos: {types.join(', ').toUpperCase()}</span>;
+  return <span className="text-start text-sm text-zinc-600 col-span-1">Formatos permitidos: {types.join(', ').toUpperCase()}</span>;
 }

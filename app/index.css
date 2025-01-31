@@ -11,4 +11,12 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
   }
+
+  .serch-input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+
+  .serch-input::-ms-clear {
+    appearance: none;
+  }
 }

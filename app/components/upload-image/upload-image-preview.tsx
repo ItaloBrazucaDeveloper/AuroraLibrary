@@ -1,3 +1,7 @@
 export function UploadImagePreview() {
-  return <div />;
+  return (
+    <div>
+      <img src="" alt="" />
+    </div>
+  );
 }

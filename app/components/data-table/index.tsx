@@ -12,7 +12,7 @@ import { DataTableRow } from './data-table-row';
 interface DataTableProps {
 	headers: string[];
 	data?: {}[];
-	onActionsClicked: (action: 'edit' | 'delete', dataRow: {}) => void;
+	onActionsClicked: (action: 'edit' | 'delete') => void;
 }
 
 export function DataTable({
@@ -31,13 +31,11 @@ export function DataTable({
 	return (
 		<DataTableContainer>
 			<DataTableHeader>
-				<DataTableField asHeader className="p-1 px-3">
-					#
-				</DataTableField>
+				<DataTableField asHeader>#</DataTableField>
 				<MapList
 					list={headers}
 					callback={(header) => (
-						<DataTableField key={header} asHeader className="p-1 px-3">
+						<DataTableField key={header} asHeader>
 							{header}
 						</DataTableField>
 					)}
@@ -48,22 +46,13 @@ export function DataTable({
 					<MapList
 						list={data}
 						callback={(row, index) => (
-							<DataTableRow
-								key={index}
-								className="rounded-xl hover:scale-[1.01]"
-							>
-								<DataTableField className="first:rounded-l-xl last:rounded-r-xl">
-									{index + 1}
-								</DataTableField>
+							<DataTableRow key={index}>
+								<DataTableField>{index + 1}</DataTableField>
 								{Object.values(row).map((field: any, fieldIndex) => (
-									<DataTableField
-										key={fieldIndex}
-										className="first:rounded-l-xl last:rounded-r-xl"
-									>
-										{field}
-									</DataTableField>
+									<DataTableField key={fieldIndex}>{field}</DataTableField>
 								))}
 								<DataTableActions
+									data-id={row.id}
 									dataRow={row}
 									actions="edit-delete"
 									onActionsClicked={onActionsClicked}

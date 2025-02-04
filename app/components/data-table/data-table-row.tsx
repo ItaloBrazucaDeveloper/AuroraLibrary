@@ -1,16 +1,23 @@
 import { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-type DataTableRowProps = ComponentProps<'tr'>;
+type DataTableRowProps = ComponentProps<'tr'> & {
+	hoverEffect?: boolean;
+};
 
-export function DataTableRow({ className, ...props }: DataTableRowProps) {
+export function DataTableRow({
+	hoverEffect,
+	className,
+	...props
+}: DataTableRowProps) {
 	return (
 		<tr
-			{...props}
+			data-hover-effect={hoverEffect}
 			className={twMerge(
-				'hover:bg-zinc-50 transition-all',
+				'data-[hover-effect=true]:hover:bg-zinc-50/35 transition-all',
 				className,
 			)}
+			{...props}
 		/>
 	);
 }

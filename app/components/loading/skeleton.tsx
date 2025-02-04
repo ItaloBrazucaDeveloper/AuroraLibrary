@@ -1,28 +1,19 @@
-import { tv, VariantProps } from 'tailwind-variants';
+import { VariantProps, tv } from 'tailwind-variants';
+import { loading } from './styles-variants';
+
+type SkeletonLoadingProps = VariantProps<typeof skeletonLoading>;
 
 const skeletonLoading = tv({
+	extend: loading,
 	base: '',
 	variants: {
 		format: {
-			circle: '',
-			square: '',
+			circle: 'rounded-full',
+			square: 'rounded-md',
 			text: '',
 		},
-		size: {
-			xs: '',
-			sm: '',
-			lg: '',
-			xl: '',
-		},
 	},
-	compoundVariants: [
-		{
-			
-		}
-	]
 });
-
-type SkeletonLoadingProps = VariantProps<typeof skeletonLoading>;
 
 export function SkeletonLoading({ size, format }: SkeletonLoadingProps) {
 	return <div className={skeletonLoading({ format, size })} />;

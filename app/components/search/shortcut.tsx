@@ -2,7 +2,7 @@ import { CommandIcon } from 'lucide-react';
 
 export function Shortcut() {
 	return (
-		<div className="group-has-[input:focus]:hidden flex gap-1 items-center absolute right-3 top-1/2 -translate-y-1/2 text-zinc-700">
+		<div className="hidden md:flex group-has-[input:focus]:hidden gap-1 items-center absolute z-40 right-3 top-1/2 -translate-y-1/2 text-zinc-700">
 			<div className="bg-zinc-200/60 px-1.5 py-1.5 rounded">
 				<CommandIcon className="size-3" />
 			</div>

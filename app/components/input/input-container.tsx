@@ -6,7 +6,7 @@ type InputContainerProps = ComponentProps<'div'> &
 	VariantProps<typeof inputContainer>;
 
 const inputContainer = tv({
-	base: 'relative flex flex-col gap-2 rounded-lg w-full md:max-w-96',
+	base: 'relative flex flex-col gap-2 rounded-lg w-full',
 	variants: {
 		rowDirection: {
 			true: 'flex-row',

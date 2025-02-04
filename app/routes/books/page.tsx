@@ -6,6 +6,7 @@ import { Search } from '@components/search';
 import { useModal } from '@hooks/useModal';
 import { BookPlusIcon, BookmarkIcon, XIcon } from 'lucide-react';
 
+import { Pagination } from '@components/pagination';
 import { Route } from './+types/route';
 import { BookForm } from './books-form';
 
@@ -25,9 +26,7 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 	return (
 		<>
 			<div className="flex flex-wrap gap-5 justify-between mx-5 mt-5">
-				<h1 className="flex items-center font-semibold text-3xl">
-					<BookmarkIcon className="size-7" /> Livros
-				</h1>
+				<h1 className="flex items-center font-semibold text-3xl">Livros</h1>
 				<div className="flex gap-5">
 					<Search.Container>
 						<Search.Control />
@@ -36,7 +35,7 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 						variant="dark"
 						icon={BookPlusIcon}
 						onClick={() => modalCreateBookForm.openModal()}
-						className="text-nowrap p-4 absolute bottom-0 right-0 m-8 rounded-full md:m-0 md:px-4 md:py-1 md:rounded-lg md:relative"
+						className="text-nowrap md:m-0 md:px-4 md:py-1 md:rounded-lg md:relative"
 					>
 						<span className="hidden md:block">Cadastrar livro</span>
 					</Button>
@@ -46,7 +45,16 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 			<hr className="mx-2 my-2" />
 			<DataTable
 				onActionsClicked={onActionsClicked}
-				headers={['Capa', 'Título', 'Autor(a)', 'Editora', 'Ano', 'Ações']}
+				headers={[
+					'Capa',
+					'Título',
+					'Categoria',
+					'Autor(a)',
+					'Editora',
+					'Ano',
+					'Quantidade',
+					'Ações',
+				]}
 				data={[
 					{
 						capa: (
@@ -56,9 +64,11 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 							/>
 						),
 						titulo: 'Livro 1',
+						category: 'Categoria 1',
 						autor: 'Autor 1',
 						editora: 'Editora 1',
 						ano: '2022',
+						quantidade: '10 unidades',
 					},
 					{
 						capa: (
@@ -68,12 +78,41 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 							/>
 						),
 						titulo: 'Livro 1',
+						category: 'Categoria 1',
 						autor: 'Autor 1',
 						editora: 'Editora 1',
 						ano: '2022',
+						quantidade: '10 unidades',
+					},
+					{
+						capa: (
+							<img
+								className="size-8 rounded-sm"
+								src="https://github.com/ItaloBrazucaDeveloper.png"
+							/>
+						),
+						titulo: 'Livro 1',
+						category: 'Categoria 1',
+						autor: 'Autor 1',
+						editora: 'Editora 1',
+						ano: '2022',
+						quantidade: '10 unidades',
 					},
 				]}
 			/>
+
+			<Pagination.Container className="mt-auto mb-4">
+				<Pagination.Arrow direction="left" />
+				<Pagination.Pages>
+					<Pagination.Page number={1} variant="selected" link="#" />
+					<Pagination.Page number={2} />
+					<Pagination.Page number={3} />
+					<Pagination.Page number={4} />
+					<Pagination.Page number={5} />
+					<Pagination.NextPages link="" />
+				</Pagination.Pages>
+				<Pagination.Arrow direction="right" />
+			</Pagination.Container>
 
 			<Modal.Container open={modalCreateBookForm.isOpen}>
 				<Modal.Content>

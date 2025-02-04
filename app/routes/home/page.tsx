@@ -1,33 +1,22 @@
-import { useState } from 'react';
-
-import { HeaderRoute } from '@components/header-route';
-import { RadioGroup } from '@components/radio-group';
 import { Input } from '@components/input';
-
+import { RadioGroup } from '@components/radio-group';
 import { MapList } from '@components/utils/map-list';
+
 import { tags } from '@utils/tags-home-page';
 import { SearchIcon } from 'lucide-react';
+import { useState } from 'react';
 
-import { Route } from './+types/home';
-import { getSession } from '~app/sessions.server';
-import { redirect } from 'react-router';
-
-export async function loader({ request }: Route.LoaderArgs) {
-	const session = await getSession(request.headers.get('Cookie'));
-	
-	if (!session.has('token')) {
-		return redirect('/');
-	}
-}
-
-export default function Home() {
+export function HomePage() {
 	const [selectedCategory, setSelectedCategory] = useState<string>(
 		tags[0].label,
 	);
 
 	return (
 		<>
-			<HeaderRoute routeName="Home" action="Olá, Júlia!" />
+			<header className="p-4 text-xl">
+				<h1 className="font-semibold text-3xl">Olá, Júlia!</h1>
+			</header>
+
 			<div className="flex flex-col items-center justify-center gap-10 h-full">
 				<RadioGroup.Container
 					name="book-category"
@@ -51,6 +40,7 @@ export default function Home() {
 						)}
 					/>
 				</RadioGroup.Container>
+
 				<Input.Container className="relative w-11/12 md:w-4/6">
 					<Input.Label>
 						<SearchIcon className="absolute -translate-y-1/2 bottom-0 left-3 text-zinc-600" />

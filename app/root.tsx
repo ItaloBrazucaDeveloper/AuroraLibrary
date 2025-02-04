@@ -1,5 +1,23 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
 
+export function links() {
+	return [
+		{
+			rel: 'preconnect',
+			href: 'https://fonts.googleapis.com',
+		},
+		{
+			rel: 'preconnect',
+			href: 'https://fonts.gstatic.com',
+			crossOrigin: 'true',
+		},
+		{
+			href: 'https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap',
+			rel: 'stylesheet',
+		},
+	];
+}
+
 export function Layout({
 	children,
 }: {
@@ -14,7 +32,7 @@ export function Layout({
 				<Meta />
 				<Links />
 			</head>
-			<body className="antialiased">
+			<body className="antialiased font-lexend-deca">
 				{children}
 				<ScrollRestoration />
 				<Scripts />

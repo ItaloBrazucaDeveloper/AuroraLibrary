@@ -11,10 +11,10 @@ export function DataTableHeader({
 }: DataTableHeaderProps) {
 	return (
 		<thead
-			className={twMerge(className, 'text-zinc-500/70')}
+			className={twMerge(className, 'text-zinc-500')}
 			{...props}
 		>
-			<DataTableRow className='hover:bg-none bg-zinc-50'>{children}</DataTableRow>
+			<DataTableRow className='bg-zinc-50'>{children}</DataTableRow>
 		</thead>
 	);
 }

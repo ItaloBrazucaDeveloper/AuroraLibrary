@@ -30,7 +30,7 @@ export function ClientForm({ client }: { client?: ClientSchemaType }) {
 					placeholder="ex: (61) 9.9999-9999"
 					defaultValue={client?.phone}
 					className="py-2"
-					inputMask='(##) #.####-####'
+					mask='(##) #.####-####'
 				/>
 			</Input.Container>
 			<Input.Container>
@@ -40,7 +40,7 @@ export function ClientForm({ client }: { client?: ClientSchemaType }) {
 					placeholder="ex: 000.000.000-00"
 					defaultValue={client?.cpf}
 					className="py-2"
-					inputMask='###.###.###-##'
+					mask='###.###.###-##'
 				/>
 			</Input.Container>
 			<fieldset>
@@ -53,7 +53,7 @@ export function ClientForm({ client }: { client?: ClientSchemaType }) {
 							placeholder="ex: 00.000-000"
 							defaultValue={client?.address?.cep}
 							className="py-2"
-							inputMask='#####-##'
+							mask='#####-##'
 						/>
 					</Input.Container>
 					<Input.Container>

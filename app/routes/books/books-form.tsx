@@ -5,7 +5,7 @@ import { BookSchemaType } from '~validation/books';
 
 export function BookForm({ book }: { book?: BookSchemaType }) {
 	return (
-		<Form method="post" className="flex flex-col gap-5 px-4">
+		<Form method="post" className="flex flex-col gap-7 px-4">
 			<Input.Container>
 				<Input.Label>Título</Input.Label>
 				<Input.Control
@@ -32,23 +32,34 @@ export function BookForm({ book }: { book?: BookSchemaType }) {
 					defaultValue={book?.publisher}
 				/>
 			</Input.Container>
+			
+			<div className="flex justify-between gap-3">
+				<Input.Container>
+					<Input.Label>Ano</Input.Label>
+					<Input.Control
+						min={1900}
+						type="number"
+						name="year"
+						placeholder="ex: 1990"
+						defaultValue={''}
+					/>
+				</Input.Container>
 
-			<div>
-				<label htmlFor="">Ano</label>
-				<select name="">
-					{Array.from({ length: 2025 - 1900 }, (_, i) => i + 1).map((year) => (
-						<option key={year} value={year}>
-							{1909 + year}
-						</option>
-					))}
-				</select>
+				<Input.Container>
+					<Input.Label>Quantidade</Input.Label>
+					<Input.Control
+						min={1}
+						type="number"
+						name="quantity_books"
+						placeholder="ex: 10"
+						defaultValue={''}
+					/>
+				</Input.Container>
 			</div>
 
 			<UploadImage.Container>
 				<UploadImage.Label>Capa do livro</UploadImage.Label>
 				<UploadImage.Control name="book_cover" />
-				<UploadImage.Types types={['jpg', 'png', 'webp']} />
-				<UploadImage.MaxSize maxSize={5} />
 			</UploadImage.Container>
 		</Form>
 	);

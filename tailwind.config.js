@@ -3,8 +3,18 @@ export default {
 	content: ['./app/**/*.{js,ts,jsx,tsx}'],
 	theme: {
 		extend: {
+			keyframes: {
+				pop: {
+					'from': { transform: 'scale(0)' },
+					'to': { transform: 'scale(1)' },
+				},
+			},
 			animation: {
-
+				appear: 'pop 0.5s ease',
+				dissapear: 'pop 0.5s reverse ease',
+			},
+			fontFamily: {
+				'lexend-deca': ['Lexend Deca', 'serif'],
 			}
 		},
 	},

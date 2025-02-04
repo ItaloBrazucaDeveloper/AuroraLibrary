@@ -9,7 +9,7 @@ export function Nav() {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	return (
-		<aside className="flex flex-col p-2 md:h-full w-full md:max-w-72 md:bg-none">
+		<aside className="flex flex-col p-2 z-50 md:h-full w-full md:max-w-72 md:bg-none md:z-10">
 			<NavHeader toggleNav={() => setIsOpen(!isOpen)} />
 			<NavContent open={isOpen}>
 				<NavLinks onChangeSelectedLink={() => setIsOpen(false)} />

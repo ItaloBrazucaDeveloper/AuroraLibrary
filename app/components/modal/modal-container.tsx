@@ -1,32 +1,45 @@
+import { Backdrop } from '@components/backdrop';
 import { ComponentProps, MouseEvent } from 'react';
+import { tv } from 'tailwind-variants';
 
 type ModalContainerProps = ComponentProps<'dialog'> & {
 	hasBackdrop?: boolean;
 	onBackdropClicked?: (e: MouseEvent<HTMLDivElement>) => void;
 };
 
+const modalContainer = tv({
+	slots: {
+		modal: 'scrollbar-hide fixed z-50 inset-0 shadow rounded-lg',
+		backdrop: 'fixed z-50 size-full bg-zinc-950 opacity-50',
+	},
+	variants: {
+		open: {
+			true: {
+				modal: 'animate-appear',
+				backdrop: 'block',
+			},
+			false: {
+				modal: 'animate-disappear',
+				backdrop: 'hidden',
+			},
+		},
+	},
+});
+
 export function ModalContainer({
-	hasBackdrop = true,
+	open,
 	onBackdropClicked,
-	open = false,
+	hasBackdrop = true,
 	...props
 }: ModalContainerProps) {
+	const { modal, backdrop } = modalContainer({ open });
+
 	return (
-		open && (
-			<div
-				className={
-					hasBackdrop ? 'absolute inset-0 bg-zinc-950/40 size-full' : ''
-				}
-				onClick={onBackdropClicked}
-			>
-				<dialog
-					open={true}
-					className="z-50 inset-0 shadow backdrop:bg-zinc-900 rounded-lg scrollbar-hide"
-					aria-modal="true"
-					role="dialog"
-					{...props}
-				/>
-			</div>
-		)
+		<>
+			{hasBackdrop && (
+				<Backdrop className={backdrop()} onClick={onBackdropClicked} />
+			)}
+			<dialog open={open} className={modal()} {...props} />
+		</>
 	);
 }

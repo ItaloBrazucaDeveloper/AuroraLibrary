@@ -10,7 +10,6 @@ export async function loader({ request, params }: Route.LoaderArgs) {
       author: '',
       publisher: '',
       year: 0,
-      book_cover: new File([], ''),
     }
   }
 }

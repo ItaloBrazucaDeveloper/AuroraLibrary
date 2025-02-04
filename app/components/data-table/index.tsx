@@ -46,7 +46,7 @@ export function DataTable({
 					<MapList
 						list={data}
 						callback={(row, index) => (
-							<DataTableRow key={index}>
+							<DataTableRow hoverEffect key={index}>
 								<DataTableField>{index + 1}</DataTableField>
 								{Object.values(row).map((field: any, fieldIndex) => (
 									<DataTableField key={fieldIndex}>{field}</DataTableField>

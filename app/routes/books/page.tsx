@@ -2,9 +2,9 @@ import { Button } from '@components/button';
 import { DataTable } from '@components/data-table';
 import { Modal } from '@components/modal';
 
-import { Search } from '@components/search';
+import { Search } from '@components/search-tool';
 import { useModal } from '@hooks/useModal';
-import { BookPlusIcon, BookmarkIcon, XIcon } from 'lucide-react';
+import { BookPlusIcon, XIcon } from 'lucide-react';
 
 import { Pagination } from '@components/pagination';
 import { Route } from './+types/route';
@@ -32,17 +32,16 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 						<Search.Control />
 					</Search.Container>
 					<Button
-						variant="dark"
-						icon={BookPlusIcon}
+						theme="dark"
 						onClick={() => modalCreateBookForm.openModal()}
 						className="text-nowrap md:m-0 md:px-4 md:py-1 md:rounded-lg md:relative"
 					>
+						<BookPlusIcon className="mr-2" />
 						<span className="hidden md:block">Cadastrar livro</span>
 					</Button>
 				</div>
 			</div>
 
-			<hr className="mx-2 my-2" />
 			<DataTable
 				onActionsClicked={onActionsClicked}
 				headers={[
@@ -55,50 +54,7 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 					'Quantidade',
 					'Ações',
 				]}
-				data={[
-					{
-						capa: (
-							<img
-								className="size-8 rounded-sm"
-								src="https://github.com/ItaloBrazucaDeveloper.png"
-							/>
-						),
-						titulo: 'Livro 1',
-						category: 'Categoria 1',
-						autor: 'Autor 1',
-						editora: 'Editora 1',
-						ano: '2022',
-						quantidade: '10 unidades',
-					},
-					{
-						capa: (
-							<img
-								className="size-8 rounded-sm"
-								src="https://github.com/ItaloBrazucaDeveloper.png"
-							/>
-						),
-						titulo: 'Livro 1',
-						category: 'Categoria 1',
-						autor: 'Autor 1',
-						editora: 'Editora 1',
-						ano: '2022',
-						quantidade: '10 unidades',
-					},
-					{
-						capa: (
-							<img
-								className="size-8 rounded-sm"
-								src="https://github.com/ItaloBrazucaDeveloper.png"
-							/>
-						),
-						titulo: 'Livro 1',
-						category: 'Categoria 1',
-						autor: 'Autor 1',
-						editora: 'Editora 1',
-						ano: '2022',
-						quantidade: '10 unidades',
-					},
-				]}
+				data={loaderData.books}
 			/>
 
 			<Pagination.Container className="mt-auto mb-4">
@@ -109,7 +65,6 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 					<Pagination.Page number={3} />
 					<Pagination.Page number={4} />
 					<Pagination.Page number={5} />
-					<Pagination.NextPages link="" />
 				</Pagination.Pages>
 				<Pagination.Arrow direction="right" />
 			</Pagination.Container>
@@ -119,22 +74,23 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 					<Modal.Header>
 						<h2 className="text-2xl font-semibold text-zinc-800">Novo Livro</h2>
 						<Button
-							icon={XIcon}
 							title="Fechar"
 							onClick={() => modalCreateBookForm.closeModal()}
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
-						/>
+						>
+							<XIcon />
+						</Button>
 					</Modal.Header>
 					<BookForm />
 					<Modal.Footer>
 						<Button
 							className="px-4"
-							variant="outlined"
+							theme="outlined"
 							onClick={() => modalCreateBookForm.closeModal()}
 						>
 							Cancelar
 						</Button>
-						<Button variant="dark" className="px-4">
+						<Button theme="dark" className="px-4">
 							Cadastrar
 						</Button>
 					</Modal.Footer>
@@ -148,22 +104,22 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 							Atualizar Livro
 						</h2>
 						<Button
-							icon={XIcon}
 							title="Fechar"
 							onClick={() => modalEditBookForm.closeModal()}
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
-						/>
+						>
+							<XIcon />
+						</Button>
 					</Modal.Header>
-					<BookForm book={loaderData?.book} />
+					<BookForm />
 					<Modal.Footer>
 						<Button
 							className="px-4"
-							variant="outlined"
 							onClick={() => modalEditBookForm.closeModal()}
 						>
 							Cancelar
 						</Button>
-						<Button variant="dark" className="px-4">
+						<Button theme="dark" className="px-4">
 							Cadastrar
 						</Button>
 					</Modal.Footer>
@@ -177,13 +133,12 @@ export function BooksPage({ loaderData }: Route.ComponentProps) {
 					</Modal.Header>
 					<Modal.Footer>
 						<Button
-							variant="outlined"
 							className="px-4"
 							onClick={() => modalDeleteBook.closeModal()}
 						>
 							Cancelar
 						</Button>
-						<Button className="px-4" variant="dark">
+						<Button className="px-4" theme="dark">
 							Excluir
 						</Button>
 					</Modal.Footer>

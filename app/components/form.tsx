@@ -5,7 +5,7 @@ export function Form({ className, ...props }: FormProps) {
 	return (
 		<FormReactRouter
 			className={twMerge(
-				'grid gap-3 min-w-96 rounded-lg ring-1 ring-zinc-300 shadow-md',
+				'grid gap-7 min-w-96 px-4',
 				className,
 			)}
 			{...props}

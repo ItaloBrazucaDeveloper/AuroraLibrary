@@ -27,12 +27,12 @@ export function LoginPage({ loaderData: { error } }: Route.ComponentProps) {
 				<h1 className="text-2xl font-semibold">Aurora Library</h1>
 			</header>
 
-			<Form method="POST">
-				<h2 className="relative p-2 pl-3 font-medium after:absolute after:bottom-0 after:left-0 after:bg-zinc-100 after:h-px after:w-full">
-					Login
-				</h2>
-
-				<div className="grid gap-8 p-4">
+			<div className="rounded-lg ring-1 ring-zinc-300 shadow-md">
+				<header>
+					<h2 className="relative p-2 pl-3 font-medium">Login</h2>
+					<hr />
+				</header>
+				<Form method="POST" className="flex-1 w-[400px] h-[300px] px-4 py-5">
 					<Input.Container>
 						<Input.Label>Email</Input.Label>
 						<Input.Control
@@ -44,6 +44,7 @@ export function LoginPage({ loaderData: { error } }: Route.ComponentProps) {
 							disabled={isSubmitting}
 						/>
 					</Input.Container>
+
 					<Input.Container>
 						<Input.Label>Senha</Input.Label>
 						<Input.Control
@@ -65,16 +66,16 @@ export function LoginPage({ loaderData: { error } }: Route.ComponentProps) {
 					)}
 
 					<Button
-						variant="dark"
+						theme="dark"
 						disabled={isSubmitting}
-						className="justify-center font-medium h-10 w-full mt-3"
+						className="justify-center font-medium h-10 w-full mt-5"
 					>
 						<Show condition={isSubmitting} fallback={<>Entrar</>}>
 							<DotsLoading />
 						</Show>
 					</Button>
-				</div>
-			</Form>
+				</Form>
+			</div>
 		</div>
 	);
 }

@@ -1,4 +1,3 @@
-import { Backdrop } from '@components/backdrop';
 import { ComponentProps, MouseEvent } from 'react';
 import { tv } from 'tailwind-variants';
 
@@ -10,7 +9,7 @@ type ModalContainerProps = ComponentProps<'dialog'> & {
 const modalContainer = tv({
 	slots: {
 		modal: 'scrollbar-hide fixed z-50 inset-0 shadow rounded-lg',
-		backdrop: 'fixed z-50 size-full bg-zinc-950 opacity-50',
+		backdrop: 'fixed z-50 size-full bg-zinc-950/50',
 	},
 	variants: {
 		open: {
@@ -37,9 +36,9 @@ export function ModalContainer({
 	return (
 		<>
 			{hasBackdrop && (
-				<Backdrop className={backdrop()} onClick={onBackdropClicked} />
+				<div className={backdrop()} onClick={onBackdropClicked} />
 			)}
-			<dialog open={open} className={modal()} {...props} />
+			<dialog className={modal()} {...props} />
 		</>
 	);
 }

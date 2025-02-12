@@ -1,9 +1,9 @@
+import { Label } from '@components/label';
 import { InputContainer } from './input-container';
 import { InputControl } from './input-control';
-import { InputLabel } from './input-label';
 
 export const Input = {
-	Label: InputLabel,
+	Label: Label,
 	Control: InputControl,
 	Container: InputContainer,
 };

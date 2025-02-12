@@ -3,13 +3,14 @@ import { DataTable } from '@components/data-table';
 import { Modal } from '@components/modal';
 
 import { Pagination } from '@components/pagination';
-import { Search } from '@components/search';
+import { Search } from '@components/search-tool';
 import { useModal } from '@hooks/useModal';
 
 import { BookPlusIcon, XIcon } from 'lucide-react';
+import { Route } from './+types/route';
 import { LoanForm } from './loan-form';
 
-export default function LoansPage() {
+export function LoansPage({ loaderData }: Route.ComponentProps) {
 	const modalCreateLoan = useModal();
 	const modalEditLoan = useModal();
 	const modalDeleteLoan = useModal();
@@ -33,11 +34,11 @@ export default function LoansPage() {
 						<Search.Control />
 					</Search.Container>
 					<Button
-						variant="dark"
-						icon={BookPlusIcon}
+						theme="dark"
 						onClick={() => modalCreateLoan.openModal()}
 						className="text-nowrap md:m-0 md:px-4 md:py-1 md:rounded-lg md:relative"
 					>
+						<BookPlusIcon className="mr-2" />
 						<span className="hidden md:block">Novo empréstimo</span>
 					</Button>
 				</div>
@@ -49,13 +50,14 @@ export default function LoansPage() {
 				headers={[
 					'Livro',
 					'Cliente',
-					'Data de empréstimo',
-					'Data de devolução',
+					'Pegou em',
+					'Devolveu em',
+					'Devolução prevista',
 					'Multa',
-					'Finalizado',
+					'Devolvido',
 					'Ações',
 				]}
-				data={[]}
+				data={loaderData.loans}
 			/>
 
 			<Pagination.Container className="mt-auto mb-4">
@@ -66,7 +68,7 @@ export default function LoansPage() {
 					<Pagination.Page number={3} />
 					<Pagination.Page number={4} />
 					<Pagination.Page number={5} />
-					<Pagination.NextPages link="" />
+					<Pagination.Page />
 				</Pagination.Pages>
 				<Pagination.Arrow direction="right" />
 			</Pagination.Container>
@@ -78,22 +80,22 @@ export default function LoansPage() {
 							Novo Empréstimo
 						</h2>
 						<Button
-							icon={XIcon}
 							title="Fechar"
 							onClick={() => modalCreateLoan.closeModal()}
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
-						/>
+						>
+							<XIcon />
+						</Button>
 					</Modal.Header>
 					<LoanForm />
 					<Modal.Footer>
 						<Button
 							className="px-4"
-							variant="outlined"
 							onClick={() => modalCreateLoan.closeModal()}
 						>
 							Cancelar
 						</Button>
-						<Button variant="dark" className="px-4">
+						<Button theme="dark" className="px-4">
 							Cadastrar
 						</Button>
 					</Modal.Footer>
@@ -107,22 +109,19 @@ export default function LoansPage() {
 							Atualizar Empréstimo
 						</h2>
 						<Button
-							icon={XIcon}
 							title="Fechar"
 							onClick={() => modalEditLoan.closeModal()}
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
-						/>
+						>
+							<XIcon />
+						</Button>
 					</Modal.Header>
 					<LoanForm />
 					<Modal.Footer>
-						<Button
-							className="px-4"
-							variant="outlined"
-							onClick={() => modalEditLoan.closeModal()}
-						>
+						<Button className="px-4" onClick={() => modalEditLoan.closeModal()}>
 							Cancelar
 						</Button>
-						<Button variant="dark" className="px-4">
+						<Button theme="dark" className="px-4">
 							Cadastrar
 						</Button>
 					</Modal.Footer>
@@ -136,13 +135,12 @@ export default function LoansPage() {
 					</Modal.Header>
 					<Modal.Footer>
 						<Button
-							variant="outlined"
 							className="px-4"
 							onClick={() => modalDeleteLoan.closeModal()}
 						>
 							Cancelar
 						</Button>
-						<Button className="px-4" variant="dark">
+						<Button className="px-4" theme="dark">
 							Excluir
 						</Button>
 					</Modal.Footer>

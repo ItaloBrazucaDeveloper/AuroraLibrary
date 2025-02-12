@@ -14,7 +14,7 @@ export function DataTableHeader({
 			className={twMerge(className, 'text-zinc-500')}
 			{...props}
 		>
-			<DataTableRow className='bg-zinc-50'>{children}</DataTableRow>
+			<DataTableRow className='bg-zinc-50 *:font-medium'>{children}</DataTableRow>
 		</thead>
 	);
 }

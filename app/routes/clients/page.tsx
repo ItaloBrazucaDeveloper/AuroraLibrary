@@ -1,11 +1,11 @@
 import { Button } from '@components/button';
 import { DataTable } from '@components/data-table';
-
-import { Input } from '@components/input';
 import { Modal } from '@components/modal';
-import { useModal } from '@hooks/useModal';
 
-import { FilterIcon, SearchIcon, UserPlusIcon, XIcon } from 'lucide-react';
+import { Search } from '@components/search-tool';
+import { useModal } from '@hooks/useModal';
+import { FilterIcon, UserPlusIcon, XIcon } from 'lucide-react';
+
 import { Route } from './+types/route';
 import { ClientForm } from './client-form';
 
@@ -28,35 +28,21 @@ export function ClientsPage({ loaderData }: Route.ComponentProps) {
 				<h1 className="font-semibold text-3xl">Clientes</h1>
 			</header>
 			<div className="flex justify-between mx-2 mt-5">
-				<Button
-					icon={FilterIcon}
-					variant="outlined"
-					className="h-fit rounded-md"
-				>
-					Filtros
+				<Button className="h-fit rounded-md">
+					<FilterIcon className="size-5 mr-2" />
+					<span>Filtros</span>
 				</Button>
 
 				<div className="flex gap-5">
-					<Input.Container rowDirection className="items-center gap-2">
-						<Input.Label
-							title="Buscar"
-							className="outline outline-1 outline-zinc-300 p-1.5 rounded-full"
-						>
-							<SearchIcon className="size-5 text-zinc-600" />
-						</Input.Label>
-						<Input.Control
-							type="text"
-							placeholder="Buscar por cliente..."
-							className="rounded-full px-4 focus:outline-2 focus:outline-zinc-300 w-64"
-						/>
-					</Input.Container>
+					<Search.Container>
+						<Search.Control />
+					</Search.Container>
 					<Button
-						variant="dark"
-						icon={UserPlusIcon}
-						title="Cadastrar cliente"
+						theme="dark"
 						onClick={() => modalCreateClientForm.openModal()}
 						className="p-4 absolute bottom-0 right-0 m-8 rounded-full md:m-0 md:px-4 md:py-1 md:rounded-lg md:relative"
 					>
+						<UserPlusIcon className="mr-2" />
 						<span className="hidden md:block">Cadastrar cliente</span>
 					</Button>
 				</div>
@@ -76,22 +62,22 @@ export function ClientsPage({ loaderData }: Route.ComponentProps) {
 							Novo Cliente
 						</h2>
 						<Button
-							icon={XIcon}
 							title="Fechar"
 							onClick={() => modalCreateClientForm.closeModal()}
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
-						/>
+						>
+							<XIcon />
+						</Button>
 					</Modal.Header>
 					<ClientForm />
 					<Modal.Footer>
 						<Button
 							className="px-4"
-							variant="outlined"
 							onClick={() => modalCreateClientForm.closeModal()}
 						>
 							Cancelar
 						</Button>
-						<Button variant="dark" className="px-4">
+						<Button theme="dark" className="px-4">
 							Cadastrar
 						</Button>
 					</Modal.Footer>
@@ -105,22 +91,22 @@ export function ClientsPage({ loaderData }: Route.ComponentProps) {
 							Atualizar Cliente
 						</h2>
 						<Button
-							icon={XIcon}
 							title="Fechar"
 							onClick={() => modalEditClientForm.closeModal()}
 							className="p-0.5 size-5 bg-rose-300 rounded-full"
-						/>
+						>
+							<XIcon />
+						</Button>
 					</Modal.Header>
 					<ClientForm client={loaderData.client} />
 					<Modal.Footer>
 						<Button
 							className="px-4"
-							variant="outlined"
 							onClick={() => modalEditClientForm.closeModal()}
 						>
 							Cancelar
 						</Button>
-						<Button variant="dark" className="px-4">
+						<Button theme="dark" className="px-4">
 							Cadastrar
 						</Button>
 					</Modal.Footer>
@@ -134,13 +120,12 @@ export function ClientsPage({ loaderData }: Route.ComponentProps) {
 					</Modal.Header>
 					<Modal.Footer>
 						<Button
-							variant="outlined"
 							className="px-4"
 							onClick={() => modalDeleteClient.closeModal()}
 						>
 							Cancelar
 						</Button>
-						<Button className="px-4" variant="dark">
+						<Button className="px-4" theme="dark">
 							Excluir
 						</Button>
 					</Modal.Footer>

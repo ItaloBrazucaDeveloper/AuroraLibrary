@@ -9,7 +9,7 @@ const page = tv({
 	variants: {
 		variant: {
 			selected: 'bg-zinc-900 text-zinc-50 outline-zinc-900',
-			blocked: 'bg-zinc-100 text-zinc-900 cursor-not-allowed opacity-60',
+			blocked: 'bg-zinc-100 text-zinc-900 opacity-60 pointer-events-none',
 			default: 'bg-zinc-50',
 		},
 	},
@@ -17,12 +17,12 @@ const page = tv({
 
 type PaginationPageProps = VariantProps<typeof page> & {
 	link?: string;
-	number: number;
+	number?: number;
 };
 
 export function PaginationPage({
+	number,
 	link = '',
-	number = 1,
 	variant = 'default',
 }: PaginationPageProps) {
 	return (
@@ -31,7 +31,7 @@ export function PaginationPage({
 				to={link}
 				className={page({ variant: link !== '' ? variant : 'blocked' })}
 			>
-				{number}
+				{number ?? <span className="tracking-wide">...</span>}
 			</Link>
 		</li>
 	);

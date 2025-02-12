@@ -9,7 +9,7 @@ export function PaginationArrow({ direction }: PaginationArrowProps) {
 	const Icon = direction === 'left' ? ChevronLeftIcon : ChevronRightIcon;
 
 	return (
-		<Button variant="no-border">
+		<Button theme='no-outlined'>
 			<Icon className="size-6 text-zinc-700" />
 		</Button>
 	);

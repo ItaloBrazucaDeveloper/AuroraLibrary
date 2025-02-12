@@ -1,11 +1,5 @@
-import { LucideProps } from 'lucide-react';
-import { ComponentProps, ComponentType } from 'react';
-import { tv } from 'tailwind-variants';
-
-export type ButtonProps = ComponentProps<'button'> & {
-	variant?: 'dark' | 'outlined' | 'no-border';
-	icon?: ComponentType<LucideProps>;
-};
+import { ComponentProps } from 'react';
+import { VariantProps, tv } from 'tailwind-variants';
 
 const button = tv({
 	base: [
@@ -16,28 +10,17 @@ const button = tv({
 		theme: {
 			dark: 'bg-zinc-800 text-zinc-100',
 			outlined: 'bg-none ring ring-1 ring-zinc-300',
-			'no-border': 'ring-none'
+			'no-outlined': 'ring-none',
 		},
 	},
 });
 
+type ButtonProps = ComponentProps<'button'> & VariantProps<typeof button>;
+
 export function Button({
-	variant = 'outlined',
-	icon: Icon,
+	theme = 'outlined',
 	className,
-	children,
 	...props
 }: ButtonProps) {
-	return (
-		<button
-			data-theme={variant}
-			className={button({ theme: variant, className })}
-			{...props}
-		>
-			{Icon && (
-				<Icon className="size-5 stroke-2 group-data-[theme='outlined']:opacity-65" />
-			)}
-			{children}
-		</button>
-	);
+	return <button className={button({ theme, className })} {...props} />;
 }

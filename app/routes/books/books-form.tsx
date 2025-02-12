@@ -1,11 +1,11 @@
 import { Input } from '@components/input';
 import { UploadImage } from '@components/upload-image';
-import { Form } from 'react-router';
+import { Form } from '@components/form';
 import { BookSchemaType } from '~validation/books';
 
 export function BookForm({ book }: { book?: BookSchemaType }) {
 	return (
-		<Form method="post" className="flex flex-col gap-7 px-4">
+		<Form method="post">
 			<Input.Container>
 				<Input.Label>Título</Input.Label>
 				<Input.Control

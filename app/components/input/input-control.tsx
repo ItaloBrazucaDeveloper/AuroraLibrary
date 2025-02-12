@@ -1,6 +1,5 @@
 import { ComponentProps, forwardRef } from 'react';
 import { VariantProps, tv } from 'tailwind-variants';
-import { getContext } from './input-context';
 
 type InputControlProps = {
 	mask?: string;
@@ -22,13 +21,10 @@ const inputControl = tv({
 
 export const InputControl = forwardRef<HTMLInputElement, InputControlProps>(
 	({ className, mask, outline, ...props }, ref) => {
-		const { inputId } = getContext();
-
 		return (
 			<div className={inputControl({ outline, className })}>
 				<input
 					ref={ref}
-					id={inputId}
 					className="border-0 outline-0 bg-transparent size-full [&[type=search]]:clear-button-serch-input"
 					{...props}
 				/>

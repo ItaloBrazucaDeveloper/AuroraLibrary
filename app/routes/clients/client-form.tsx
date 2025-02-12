@@ -14,6 +14,7 @@ export function ClientForm({ client }: { client?: ClientSchemaType }) {
 					className="py-2"
 				/>
 			</Input.Container>
+
 			<Input.Container>
 				<Input.Label>Email</Input.Label>
 				<Input.Control
@@ -23,6 +24,7 @@ export function ClientForm({ client }: { client?: ClientSchemaType }) {
 					className="py-2"
 				/>
 			</Input.Container>
+
 			<Input.Container>
 				<Input.Label>Telefone</Input.Label>
 				<Input.Control
@@ -33,6 +35,7 @@ export function ClientForm({ client }: { client?: ClientSchemaType }) {
 					mask='(##) #.####-####'
 				/>
 			</Input.Container>
+
 			<Input.Container>
 				<Input.Label>CPF</Input.Label>
 				<Input.Control
@@ -43,6 +46,7 @@ export function ClientForm({ client }: { client?: ClientSchemaType }) {
 					mask='###.###.###-##'
 				/>
 			</Input.Container>
+
 			<fieldset>
 				<span className="text-zinc-500">Endereço</span>
 				<div className="flex gap-5">
@@ -56,6 +60,7 @@ export function ClientForm({ client }: { client?: ClientSchemaType }) {
 							mask='#####-##'
 						/>
 					</Input.Container>
+					
 					<Input.Container>
 						<Input.Label>Número</Input.Label>
 						<Input.Control

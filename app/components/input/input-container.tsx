@@ -1,6 +1,5 @@
 import { ComponentProps } from 'react';
 import { VariantProps, tv } from 'tailwind-variants';
-import { InputContext, getProviders } from './input-context';
 
 type InputContainerProps = ComponentProps<'div'> &
 	VariantProps<typeof inputContainer>;
@@ -19,11 +18,7 @@ export function InputContainer({
 	className,
 	...props
 }: InputContainerProps) {
-	const providers = getProviders();
-
 	return (
-		<InputContext.Provider value={providers}>
-			<div className={inputContainer({ rowDirection, className })} {...props} />
-		</InputContext.Provider>
+		<div className={inputContainer({ rowDirection, className })} {...props} />
 	);
 }

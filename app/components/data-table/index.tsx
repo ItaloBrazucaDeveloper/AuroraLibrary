@@ -20,14 +20,6 @@ export function DataTable({
 	data = [],
 	onActionsClicked,
 }: DataTableProps) {
-	const Fallback = (
-		<DataTableRow className="hover:bg-transparent hover:ring-0">
-			<DataTableField className="text-center" colSpan={headers.length + 1}>
-				Nenhum registro encontrado
-			</DataTableField>
-		</DataTableRow>
-	);
-
 	return (
 		<DataTableContainer>
 			<DataTableHeader>
@@ -42,7 +34,7 @@ export function DataTable({
 				/>
 			</DataTableHeader>
 			<DataTableBody>
-				<Show condition={data?.length > 0} fallback={Fallback}>
+				<Show condition={data?.length > 0}>
 					<MapList
 						list={data}
 						callback={(row, index) => (
@@ -52,7 +44,6 @@ export function DataTable({
 									<DataTableField key={fieldIndex}>{field}</DataTableField>
 								))}
 								<DataTableActions
-									data-id={row.id}
 									dataRow={row}
 									actions="edit-delete"
 									onActionsClicked={onActionsClicked}

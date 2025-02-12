@@ -1,23 +1,23 @@
 import { BookCopyIcon, BookUserIcon, HomeIcon, UsersIcon } from 'lucide-react';
 
-export const links = [
+export const navLinks = [
 	{
-		href: '/home',
+		to: '/home',
 		text: 'Home',
 		icon: HomeIcon,
 	},
 	{
-		href: '/books',
+		to: '/books',
 		text: 'Livros',
 		icon: BookCopyIcon,
 	},
 	{
-		href: '/loans',
+		to: '/loans',
 		text: 'Empréstimos',
 		icon: BookUserIcon,
 	},
 	{
-		href: '/clients',
+		to: '/clients',
 		text: 'Clientes',
 		icon: UsersIcon,
 	},

@@ -16,13 +16,13 @@ export async function validateLogin(formData: FormData) {
 	const validate = loginSchema.safeParse(user);
 
 	if (validate.success) {
-		const { success } = await api.post<LoginSchemaType, LoginResponseServerType>(
+		const res = await api.post<LoginSchemaType, LoginResponseServerType>(
 			'/login',
 			validate.data,
 		);
 
-		if (success) {
-			return { success: success.data };
+		if (res.token) {
+			return { token: res.token };
 		}
 
 		return {

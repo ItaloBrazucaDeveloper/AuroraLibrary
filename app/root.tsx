@@ -1,4 +1,13 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+import {
+	Links,
+	Meta,
+	Outlet,
+	Scripts,
+	ScrollRestoration,
+	isRouteErrorResponse,
+} from 'react-router';
+import { Route } from './+types/root';
+import NotFound from './routes/not-found';
 
 export function links() {
 	return [
@@ -43,4 +52,26 @@ export function Layout({
 
 export default function Root() {
 	return <Outlet />;
+}
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+	if (isRouteErrorResponse(error)) {
+		const isMySideError = error.status >= 400 && error.status < 500;
+		if (isMySideError) return <NotFound />;
+
+		return <>ServerError! :p</>;
+	}
+
+	if (error instanceof Error) {
+		return (
+			<pre>
+				<h1>Error</h1>
+				<p>{error.message}</p>
+				<p>The stack trace is:</p>
+				<pre>{error.stack}</pre>
+			</pre>
+		);
+	}
+
+	return <h1>Unknown Error</h1>;
 }

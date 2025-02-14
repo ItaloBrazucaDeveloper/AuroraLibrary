@@ -24,7 +24,7 @@ export function SearchControl({}: SearchControlProps) {
 
 	return (
 		<>
-			<div className="fixed size-full bg-zinc-950/50 hidden z-30 md:group-has-[input:focus]:flex" />
+			<div className="fixed inset-0 size-full bg-zinc-950/50 hidden z-30 md:group-has-[input:focus]:flex" />
 
 			<Input.Label
 				title="Campo de busca"

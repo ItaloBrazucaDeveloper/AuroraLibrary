@@ -2,7 +2,7 @@ import { Alert } from '@components/alert';
 import { Button } from '@components/button';
 import { Input } from '@components/input';
 
-import { Form } from '@components/form';
+import { Form } from 'react-router';
 import { DotsLoading } from '@components/loading/dots';
 import { Show } from '@components/utils/show';
 
@@ -22,17 +22,21 @@ export function LoginPage({ loaderData: { error } }: Route.ComponentProps) {
 
 	return (
 		<div>
-			<header className="mb-5">
+			<div className="mb-5">
 				<span>Boas vindas a</span>
 				<h1 className="text-2xl font-semibold">Aurora Library</h1>
-			</header>
+			</div>
 
 			<div className="rounded-lg ring-1 ring-zinc-300 shadow-md">
 				<header>
 					<h2 className="relative p-2 pl-3 font-medium">Login</h2>
 					<hr />
 				</header>
-				<Form method="POST" className="flex-1 w-[400px] h-[300px] px-4 py-5">
+
+				<Form
+					method="POST"
+					className="space-y-8 min-w-[420px] px-4 py-5"
+				>
 					<Input.Container>
 						<Input.Label>Email</Input.Label>
 						<Input.Control
@@ -68,7 +72,7 @@ export function LoginPage({ loaderData: { error } }: Route.ComponentProps) {
 					<Button
 						theme="dark"
 						disabled={isSubmitting}
-						className="justify-center font-medium h-10 w-full mt-5"
+						className="justify-center font-medium h-10 w-full"
 					>
 						<Show condition={isSubmitting} fallback={<>Entrar</>}>
 							<DotsLoading />

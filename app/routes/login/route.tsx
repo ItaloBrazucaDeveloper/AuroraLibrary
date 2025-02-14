@@ -30,10 +30,10 @@ export async function action({ request }: Route.ActionArgs) {
 	const session = await getSession(request.headers.get('Cookie'));
 	const formData = await request.formData();
 
-	const { success, error } = await validateLogin(formData);
+	const { token, error } = await validateLogin(formData);
 
-	if (success) {
-		session.set('token', success.token);
+	if (token) {
+		session.set('token', token);
 
 		return redirect('/home', {
 			headers: {

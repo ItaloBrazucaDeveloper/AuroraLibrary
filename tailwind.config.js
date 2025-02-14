@@ -5,13 +5,18 @@ export default {
 		extend: {
 			keyframes: {
 				pop: {
-					'from': { transform: 'scale(0)' },
-					'to': { transform: 'scale(1)' },
+					from: { transform: 'scale(0)' },
+					to: { transform: 'scale(1)' }
 				},
+				'width-reveal': {
+					from: { transform: 'scaleX(0)' },
+					to: { transform: 'scaleX(1)' }
+				}
 			},
 			animation: {
 				appear: 'pop 0.5s ease',
 				dissapear: 'pop 0.5s reverse ease',
+				'underline-appear': 'width-reveal 0.6 linear'
 			},
 			fontFamily: {
 				'lexend-deca': ['Lexend Deca', 'serif'],

@@ -1,11 +1,11 @@
 import { ServerResponseType } from '~types/server-response-type';
 
 export function useFetchApi(
-	baseUrl: string = import.meta.env.VITE_API_BASE_URL
+	baseUrl: string = import.meta.env.VITE_API_BASE_URL,
 ) {
 	async function get<T>(
 		route: string,
-		token = "None",
+		token = 'None',
 	): Promise<ServerResponseType<T>> {
 		try {
 			const response = await fetch(`${baseUrl}${route}`, {
@@ -84,9 +84,9 @@ export function useFetchApi(
 		try {
 			const response = await fetch(`${baseUrl}${route}`, {
 				headers: {
-					Authentication: token
+					Authentication: token,
 				},
-				method: 'DELETE'
+				method: 'DELETE',
 			});
 
 			if (!response.ok) {

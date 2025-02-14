@@ -1,7 +1,7 @@
 # 📚 Aurora Library - React
 
 
-![Screenshot of Home Page](/home_page.png)
+![Screenshot of the home page](/home_page.png)
 
 [![GitHub license](https://img.shields.io/github/license/ItaloBrazucaDeveloper/aurora_library)](https://github.com/ItaloBrazucaDeveloper/aurora_library/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/ItaloBrazucaDeveloper/aurora_library)](https://github.com/ItaloBrazucaDeveloper/aurora_library/issues)

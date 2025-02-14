@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 export default function NotFound() {
 	return (
-		<div>
+		<>
 			<header className="p-4 text-xl">
 				<h1 className="font-semibold text-3xl">
 					<span className="text-zinc-500 font-normal">Not Found \ </span>
@@ -32,15 +32,15 @@ export default function NotFound() {
 
 					<div className="space-x-7">
 						<Button
-							variant="outlined"
 							className="inline-flex px-6 py-2 rounded-full text-lg"
-							onClick={() => window.history.back()}
+							onClick={(_) => window.history.back()}
 						>
 							<ArrowBigLeftDashIcon strokeWidth={1.5} /> Voltar
 						</Button>
-						<Link to="/">
+
+						<Link to="/home">
 							<Button
-								variant="dark"
+								theme="dark"
 								className="inline-flex px-6 py-2 rounded-full text-lg"
 							>
 								<HomeIcon strokeWidth={1.5} /> Home
@@ -50,6 +50,6 @@ export default function NotFound() {
 					
 				</div>
 			</main>
-		</div>
+		</>
 	);
 }

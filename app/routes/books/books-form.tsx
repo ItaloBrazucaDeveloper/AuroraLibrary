@@ -1,11 +1,11 @@
 import { Input } from '@components/input';
 import { UploadImage } from '@components/upload-image';
-import { Form } from '@components/form';
+import { Form } from 'react-router';
 import { BookSchemaType } from '~validation/books';
 
 export function BookForm({ book }: { book?: BookSchemaType }) {
 	return (
-		<Form method="post">
+		<Form method="post" className="flex flex-col gap-5">
 			<Input.Container>
 				<Input.Label>Título</Input.Label>
 				<Input.Control
@@ -32,7 +32,7 @@ export function BookForm({ book }: { book?: BookSchemaType }) {
 					defaultValue={book?.publisher}
 				/>
 			</Input.Container>
-			
+
 			<div className="flex justify-between gap-3">
 				<Input.Container>
 					<Input.Label>Ano</Input.Label>

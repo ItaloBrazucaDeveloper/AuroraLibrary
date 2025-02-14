@@ -10,7 +10,7 @@ import { Outlet } from 'react-router';
 
 export default function WorkspaceLayout() {
 	return (
-		<div className="min-h-screen w-full bg-zinc-50">
+		<div className="flex flex-col min-h-screen w-full bg-zinc-50">
 			<header className="flex items-center gap-10 w-full py-4 px-7 shadow-sm">
 				<ImageWithFallback
 					src="/logo.png"
@@ -22,7 +22,7 @@ export default function WorkspaceLayout() {
 					<MapList
 						list={navLinks}
 						callback={({ icon: Icon, text, to }) => (
-							<Nav.Anchor to={to}>
+							<Nav.Anchor key={text} to={to}>
 								<Icon className="size-5" />
 								<span>{text}</span>
 							</Nav.Anchor>
@@ -35,7 +35,7 @@ export default function WorkspaceLayout() {
 				</Button>
 			</header>
 
-			<main className="flex flex-col gap-3 flex-1">
+			<main className="flex flex-col flex-1">
 				<Outlet />
 			</main>
 		</div>

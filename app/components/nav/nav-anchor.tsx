@@ -2,19 +2,20 @@ import { NavLink, NavLinkProps } from 'react-router';
 import { tv } from 'tailwind-variants';
 
 const navAnchor = tv({
-	base: 'flex items-center gap-2 text-zinc-500 hover:opacity-80 transition-all duration-200',
+	base: [
+		'flex items-center gap-2 text-zinc-500 after:absolute after:top-full relative',
+		'after:-left-3 after:h-0.5 after:w-1/2 after:ml-2 after:bg-zinc-800 after:mt-1',
+		'after:scale-x-0 hover:after:animate-underline-appear transition-all'
+	],
 	variants: {
 		isActive: {
-			true: [
-				'relative text-zinc-900 after:absolute after:top-full after:-left-2',
-				'after:h-0.5 after:w-1/2 after:ml-2 after:bg-zinc-800 after:mt-1',
-			],
+			true: 'text-zinc-900 after:scale-x-50 hover:opacity-80',
 		},
 		isPending: {
-			true: 'bg-zinc-900',
+			true: 'animate-pulse',
 		},
 		isTransitioning: {
-			true: 'bg-zinc-900',
+			true: 'after:animate-underline-appear',
 		},
 	},
 });

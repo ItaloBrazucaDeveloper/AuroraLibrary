@@ -1,3 +1,5 @@
+import { Input } from "@components/input";
+
 export function DataListContainer() {
-	return <datalist id="" />;
+	return <Input.Container />;
 }

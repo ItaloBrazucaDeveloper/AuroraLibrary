@@ -14,7 +14,7 @@ export function DataTableRow({
 		<tr
 			data-hover-effect={hoverEffect}
 			className={twMerge(
-				'data-[hover-effect=true]:hover:bg-zinc-50/35 transition-all',
+				'data-[hover-effect=true]:hover:bg-zinc-100 transition-all',
 				className,
 			)}
 			{...props}

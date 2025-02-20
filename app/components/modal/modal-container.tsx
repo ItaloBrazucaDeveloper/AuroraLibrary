@@ -8,7 +8,7 @@ type ModalContainerProps = ComponentProps<'dialog'> & {
 
 const modalContainer = tv({
 	slots: {
-		modal: 'scrollbar-hide fixed z-50 inset-0 shadow rounded-lg',
+		modal: 'scrollbar-hide fixed z-50 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 shadow rounded-lg min-w-96',
 		backdrop: 'fixed inset-0 z-50 size-full bg-zinc-950/50',
 	},
 	variants: {

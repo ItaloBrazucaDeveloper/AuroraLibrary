@@ -10,7 +10,7 @@ export function UploadImageControl({
 }: UploadImageControlProps) {
 	return (
 		<>
-			<div className="flex items-center justify-between outline outline-1 rounded-lg outline-zinc-300 shadow">
+			<div className="flex items-center justify-between outline-1 rounded-lg outline-zinc-300 shadow">
 				<div className="space-x-2 px-2">
 					<ImagePlusIcon className="inline" />
 					<span className="text-medium text-zinc-500/80 m-0">

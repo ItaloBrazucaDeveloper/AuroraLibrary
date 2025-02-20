@@ -1,104 +1,96 @@
-import { ServerResponseType } from '~types/server-response-type';
-
 export function useFetchApi(
-	baseUrl: string = import.meta.env.VITE_API_BASE_URL,
+  baseUrl: string = import.meta.env.VITE_API_BASE_URL
 ) {
-	async function get<T>(
-		route: string,
-		token = 'None',
-	): Promise<ServerResponseType<T>> {
-		try {
-			const response = await fetch(`${baseUrl}${route}`, {
-				headers: {
-					Authorization: token,
-				},
-			});
+  function getUrl(endPoint: string) {
+    if (!baseUrl) {
+      throw new Error("Base url is undefined!");
+    }
+    console.log(`${baseUrl}${endPoint}`);
+    return `${baseUrl}${endPoint}`;
+  }
 
-			if (!response.ok) {
-				throw new Error(`HTTP ERROR! RESPONSE_STATUS: ${response.status}`);
-			}
+  async function get<T>(route: string, token?: string): Promise<T> {
+    try {
+      const response = await fetch(getUrl(route), {
+        headers: {
+          Authorization: token || "None",
+        },
+      });
 
-			return await response.json();
-		} catch (e) {
-			const errorMessage = `FAILED TO FETCH! ISSUE: ${(e as Error).message}`;
-			return { error: { title: errorMessage } };
-		}
-	}
+      if (!response.ok) {
+        throw new Error(`HTTP ERROR! RESPONSE_STATUS: ${response.status}`);
+      }
 
-	async function post<T, R>(
-		route: string,
-		data: T,
-		token = 'None',
-	): Promise<ServerResponseType<R>> {
-		try {
-			const response = await fetch(`${baseUrl}${route}`, {
-				headers: {
-					'Content-Type': 'application/json',
-					Authentication: token,
-				},
-				method: 'POST',
-				body: JSON.stringify(data),
-			});
+      return await response.json();
+    } catch (e) {
+      throw new Error(`FAILED TO FETCH! ISSUE: ${(e as Error).message}`);
+    }
+  }
 
-			if (!response.ok) {
-				throw new Error(`HTTP_ERROR :( RESPONSE_STATUS: ${response.status}`);
-			}
+  async function post<T, R>(
+    route: string,
+    data: T,
+    token?: string
+  ): Promise<R> {
+    try {
+      const response = await fetch(getUrl(route), {
+        headers: {
+          "Content-Type": "application/json",
+          Authentication: token || "None",
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      });
 
-			return await response.json();
-		} catch (e) {
-			const errorMessage = `FAILED TO FETCH! ISSUE: ${(e as Error).message}`;
-			return { error: { title: errorMessage } };
-		}
-	}
+      if (!response.ok) {
+        throw new Error(`HTTP_ERROR :( RESPONSE_STATUS: ${response.status}`);
+      }
 
-	async function put<T, R>(
-		route: string,
-		data: T,
-		token = 'None',
-	): Promise<ServerResponseType<R>> {
-		try {
-			const response = await fetch(`${baseUrl}${route}`, {
-				headers: {
-					'Content-Type': 'application/json',
-					Authentication: token ? `Bearer ${token}` : 'None',
-				},
-				method: 'PUT',
-				body: JSON.stringify(data),
-			});
+      return await response.json();
+    } catch (e) {
+      throw new Error(`FAILED TO FETCH! ISSUE: ${(e as Error).message}`);
+    }
+  }
 
-			if (!response.ok) {
-				throw new Error(`HTTP ERROR :( RESPONSE_STATUS: ${response.status}`);
-			}
+  async function put<T, R>(route: string, data: T, token?: string): Promise<R> {
+    try {
+      const response = await fetch(getUrl(route), {
+        headers: {
+          "Content-Type": "application/json",
+          Authentication: token || "None",
+        },
+        method: "PUT",
+        body: JSON.stringify(data),
+      });
 
-			return await response.json();
-		} catch (e) {
-			const errorMessage = `FAILED TO FETCH! ISSUE: ${(e as Error).message}`;
-			return { error: { title: errorMessage } };
-		}
-	}
+      if (!response.ok) {
+        throw new Error(`HTTP ERROR :( RESPONSE_STATUS: ${response.status}`);
+      }
 
-	async function remove<T>(
-		route: string,
-		token = 'None',
-	): Promise<ServerResponseType<T>> {
-		try {
-			const response = await fetch(`${baseUrl}${route}`, {
-				headers: {
-					Authentication: token,
-				},
-				method: 'DELETE',
-			});
+      return await response.json();
+    } catch (e) {
+      throw new Error(`FAILED TO FETCH! ISSUE: ${(e as Error).message}`);
+    }
+  }
 
-			if (!response.ok) {
-				throw new Error(`HTTP ERROR! RESPONSE_STATUS${response.status}`);
-			}
+  async function remove<T>(route: string, token?: string): Promise<T> {
+    try {
+      const response = await fetch(getUrl(route), {
+        headers: {
+          Authentication: token || "None",
+        },
+        method: "DELETE",
+      });
 
-			return await response.json();
-		} catch (e) {
-			const errorMessage = `FAILED TO FETCH! ISSUE: ${(e as Error).message}`;
-			return { error: { title: errorMessage } };
-		}
-	}
+      if (!response.ok) {
+        throw new Error(`HTTP ERROR! RESPONSE_STATUS${response.status}`);
+      }
 
-	return { get, post, put, remove };
+      return await response.json();
+    } catch (e) {
+      throw new Error(`FAILED TO FETCH! ISSUE: ${(e as Error).message}`);
+    }
+  }
+
+  return { get, post, put, remove };
 }

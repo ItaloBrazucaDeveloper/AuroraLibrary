@@ -18,7 +18,7 @@ export function ModalHeader({
 			>
 				{children}
 			</div>
-			<hr />
+			<hr className='opacity-10' />
 		</header>
 	);
 }

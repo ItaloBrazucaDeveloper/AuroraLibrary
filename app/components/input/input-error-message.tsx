@@ -9,10 +9,8 @@ export function InputErrorMessage({
 	...props
 }: InputErrorMessageProps) {
 	return (
-		message && (
-			<span className="text-rose-600 font-light" {...props}>
-				{message}
-			</span>
-		)
+		<span className="text-rose-600 font-light" {...props}>
+			{message}
+		</span>
 	);
 }

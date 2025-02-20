@@ -1,77 +1,75 @@
 import {
-	Links,
-	Meta,
-	Outlet,
-	Scripts,
-	ScrollRestoration,
-	isRouteErrorResponse,
-} from 'react-router';
-import { Route } from './+types/root';
-import NotFound from './routes/not-found';
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+} from "react-router";
 
-export function links() {
-	return [
-		{
-			rel: 'preconnect',
-			href: 'https://fonts.googleapis.com',
-		},
-		{
-			rel: 'preconnect',
-			href: 'https://fonts.gstatic.com',
-			crossOrigin: 'true',
-		},
-		{
-			href: 'https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap',
-			rel: 'stylesheet',
-		},
-	];
+import type { Route } from "./+types/root";
+import "./app.css";
+
+export const links: Route.LinksFunction = () => [
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  {
+    rel: "preconnect",
+    href: "https://fonts.gstatic.com",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+  },
+];
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="pt-BR">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
 }
 
-export function Layout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
-	return (
-		<html lang="pt-BR">
-			<head>
-				<meta charSet="UTF-8" />
-				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<title>Aurora Library</title>
-				<Meta />
-				<Links />
-			</head>
-			<body className="antialiased font-lexend-deca">
-				{children}
-				<ScrollRestoration />
-				<Scripts />
-			</body>
-		</html>
-	);
-}
-
-export default function Root() {
-	return <Outlet />;
+export default function App() {
+  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-	if (isRouteErrorResponse(error)) {
-		const isMySideError = error.status >= 400 && error.status < 500;
-		if (isMySideError) return <NotFound />;
+  let message = "Oops!";
+  let details = "An unexpected error occurred.";
+  let stack: string | undefined;
 
-		return <>ServerError! :p</>;
-	}
+  if (isRouteErrorResponse(error)) {
+    message = error.status === 404 ? "404" : "Error";
+    details =
+      error.status === 404
+        ? "The requested page could not be found."
+        : error.statusText || details;
+  } else if (import.meta.env.DEV && error && error instanceof Error) {
+    details = error.message;
+    stack = error.stack;
+  }
 
-	if (error instanceof Error) {
-		return (
-			<pre>
-				<h1>Error</h1>
-				<p>{error.message}</p>
-				<p>The stack trace is:</p>
-				<pre>{error.stack}</pre>
-			</pre>
-		);
-	}
-
-	return <h1>Unknown Error</h1>;
+  return (
+    <main className="pt-16 p-4 container mx-auto">
+      <h1>{message}</h1>
+      <p>{details}</p>
+      {stack && (
+        <pre className="w-full p-4 overflow-x-auto">
+          <code>{stack}</code>
+        </pre>
+      )}
+    </main>
+  );
 }

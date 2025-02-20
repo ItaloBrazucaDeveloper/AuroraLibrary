@@ -1,92 +1,100 @@
-# 📚 Aurora Library - React
+# Welcome to React Router!
 
+A modern, production-ready template for building full-stack React applications using React Router.
 
-![Screenshot of the home page](/home_page.png)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
 
-[![GitHub license](https://img.shields.io/github/license/ItaloBrazucaDeveloper/aurora_library)](https://github.com/ItaloBrazucaDeveloper/aurora_library/blob/master/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/ItaloBrazucaDeveloper/aurora_library)](https://github.com/ItaloBrazucaDeveloper/aurora_library/issues)
-[![GitHub forks](https://img.shields.io/github/forks/ItaloBrazucaDeveloper/aurora_library)](https://github.com/ItaloBrazucaDeveloper/aurora_library/network)
-[![GitHub stars](https://img.shields.io/github/stars/ItaloBrazucaDeveloper/aurora_library)](https://github.com/ItaloBrazucaDeveloper/aurora_library/stargazers)
-[![GitHub contributors](https://img.shields.io/github/contributors/ItaloBrazucaDeveloper/aurora_library)](https://github.com/ItaloBrazucaDeveloper/aurora_library/graphs/contributors)
+## Features
 
-## 📝 Sobre o projeto
-Este projeto é um sistema para a biblioteca _Aurora Library_. Ele foi desenvolvido para atender as necessidades de registrar e gerenciar empréstimos de livros. Este é projeto _front-end_, para ver o projeto _back-end_, acesse o este [repositório](https://github.com/Dev-Benicio/aurora-library-project). 
+- 🚀 Server-side rendering
+- ⚡️ Hot Module Replacement (HMR)
+- 📦 Asset bundling and optimization
+- 🔄 Data loading and mutations
+- 🔒 TypeScript by default
+- 🎉 TailwindCSS for styling
+- 📖 [React Router docs](https://reactrouter.com/)
 
-## 🚀 Como iniciar o projeto   
+## Getting Started
 
-### ⛔ 🐋 Sem docker   
-> **Certifique-se de ter instalado o ['node.js'](https://nodejs.org/pt) e o gerenciador de pacote ['pnpm'](https://nodejs.org/pt)**
+### Installation
 
-1. Faça clone do projeto usando o git
+Install the dependencies:
+
 ```bash
-  git clone --branch master https://github.com/ItaloBrazucaDeveloper/aurora_library.git
+npm install
 ```
 
-2. Abra o projeto no seu editor de código favorito
-```bash
-  # Se estiver usando o Visual Studio Code, abra o projeto usando o comando abaixo
-  cd aurora_library
-  code .
+### Development
 
-  # Se estiver usando Cursor - com a ferramenta de linha de comando 'cursor', abra o projeto usando o comando abaixo
-  cd aurora_library
-  cursor .
+Start the development server with HMR:
+
+```bash
+npm run dev
 ```
 
-3. Altere as variáveis de ambiente .example.env
-  ```bash
-    # 1. Copiar, colar e renomeiar o arquivo .example.env
-    cp .example.env .env
-    # Troque os valores modelos que estão no arquivo .env
-  ```
+Your application will be available at `http://localhost:5173`.
 
-4. Instale todas as depedêndicas do projeto
+## Building for Production
+
+Create a production build:
+
 ```bash
-  pnpm install
+npm run build
 ```
 
-5. Execute o projeto e abra no navegador
+## Deployment
+
+### Docker Deployment
+
+This template includes three Dockerfiles optimized for different package managers:
+
+- `Dockerfile` - for npm
+- `Dockerfile.pnpm` - for pnpm
+- `Dockerfile.bun` - for bun
+
+To build and run using Docker:
+
 ```bash
-  pnpm run dev
+# For npm
+docker build -t my-app .
+
+# For pnpm
+docker build -f Dockerfile.pnpm -t my-app .
+
+# For bun
+docker build -f Dockerfile.bun -t my-app .
+
+# Run the container
+docker run -p 3000:3000 my-app
 ```
 
-### ✅ 🐳 Com Docker
-> **Certifique-se de ter instalado o ['docker'](https://www.docker.com/get-started)**
+The containerized application can be deployed to any platform that supports Docker, including:
 
-1. Faça clone do projeto usando o git
-```bash
-  git clone --branch master https://github.com/ItaloBrazucaDeveloper/aurora_library.git
+- AWS ECS
+- Google Cloud Run
+- Azure Container Apps
+- Digital Ocean App Platform
+- Fly.io
+- Railway
+
+### DIY Deployment
+
+If you're familiar with deploying Node applications, the built-in app server is production-ready.
+
+Make sure to deploy the output of `npm run build`
+
+```
+├── package.json
+├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
+├── build/
+│   ├── client/    # Static assets
+│   └── server/    # Server-side code
 ```
 
+## Styling
 
-2. Abra o projeto no seu editor de código favorito
-```bash
-  # Se estiver usando o Visual Studio Code | Cursor, abra o projeto usando o comando abaixo
-  cd aurora_library
-  code .
+This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
 
-  # OBS: Se estiver usando Cursor - com a ferramenta de linha de comando 'cursor', abra o projeto usando o comando abaixo
-  cd aurora_library
-  cursor .
-```
+---
 
-3. Altere as variáveis de ambiente .example.env
-  ```bash
-    # 1. Copiar, colar e renomeiar o arquivo .example.env
-    cp .example.env .env
-    # Troque os valores modelos que estão no arquivo .env
-  ```
-
-4. Execute o comando para construir a imagem docker
-```bash
-  docker build -t aurora_library .
-```
-
-5. Execute o comando para criar um container docker e executar o projeto, depois abra no navegador
-```bash
-  docker run -p 5173:5173 aurora_library
-```
-
-## Licença
-
-[MIT license](./LICENSE)
+Built with ❤️ using React Router.

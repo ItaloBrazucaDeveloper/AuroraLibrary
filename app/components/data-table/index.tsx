@@ -1,5 +1,5 @@
-import { MapList } from '../utils/map-list';
-import { Show } from '../utils/show';
+import { MapList } from '../map-list';
+import { Show } from '../show';
 
 import { DataTableActions } from './data-table-actions';
 import { DataTableBody } from './data-table-body';

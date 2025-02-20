@@ -1,19 +1,8 @@
-import { resolve } from 'path';
-import { reactRouter } from '@react-router/dev/vite';
-import { defineConfig } from 'vite';
+import { reactRouter } from "@react-router/dev/vite";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
-// https://vite.dev/config/
 export default defineConfig({
-	plugins: [reactRouter()],
-	resolve: {
-		alias: {
-			'@components': resolve(__dirname, 'app/components'),
-			'@utils': resolve(__dirname, 'app/utils'),
-			'@hooks': resolve(__dirname, 'app/hooks'),
-			'@services': resolve(__dirname, 'app/services'),
-			'~validation': resolve(__dirname, 'app/validation'),
-			'~types': resolve(__dirname, 'app/types'),
-			'~app': resolve(__dirname, 'app/'),
-		},
-	},
+  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
 });

@@ -1,23 +1,13 @@
-import { Select } from "@components/select";
+import { ComponentProps } from "react";
+import { twMerge } from "tailwind-merge";
 
-export function DataListOptions() {
-	return (
-		<Select.Container>
-			<Select.Option optionId={1}>
-				Opção 12
-			</Select.Option>
-			<Select.Option optionId={1}>
-				Opção 12
-			</Select.Option>
-			<Select.Option optionId={1}>
-				Opção 12
-			</Select.Option>
-			<Select.Option optionId={1}>
-				Opção 12
-			</Select.Option>
-			<Select.Option optionId={1}>
-				Opção 12
-			</Select.Option>
-		</Select.Container>
-	);
+type DataListOptionsProps = ComponentProps<"ul">;
+
+export function DataListOptions({ className, ...props }: DataListOptionsProps) {
+  return (
+    <ul
+      className={twMerge("max-h-80 border border-zinc-300 shadow rounded-md", className)}
+      {...props}
+    />
+  );
 }

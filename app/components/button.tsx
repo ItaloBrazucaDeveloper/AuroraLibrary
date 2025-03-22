@@ -11,7 +11,6 @@ const button = tv({
       dark: "bg-zinc-800 text-zinc-100",
       outlined: "bg-none ring ring-1 ring-zinc-300 hover:opacity-60",
       "no-outlined": "ring-none",
-      disabled: "",
     },
   },
 });

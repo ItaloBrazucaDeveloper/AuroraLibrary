@@ -1,8 +1,9 @@
 import { ComponentProps, useId } from "react";
 import { tv } from "tailwind-variants";
 
-type DataListOptionProps = ComponentProps<"div"> & {
+type DataListOptionProps = ComponentProps<"li"> & {
   selected?: boolean;
+  name: string;
 };
 
 const datalistOption = tv({
@@ -19,16 +20,19 @@ export function DataListOption({
   key,
   children,
   selected = false,
+  onClick,
+  name,
 }: DataListOptionProps) {
   const id = useId();
 
   return (
-    <li className={datalistOption({ selected })} key={key}>
+    <li className={datalistOption({ selected })} key={key} onClick={onClick}>
       <label htmlFor={id}>{children}</label>
       <input
-        type="radio"
-        className="absolute size-full inset-0 hidden"
         id={id}
+        name={name}
+        type="radio"
+        className="absolute size-full inset-0 opacity-0"
       />
     </li>
   );

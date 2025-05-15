@@ -8,7 +8,7 @@
 - Tailwind CSS
 - TypeScript
 
-## 📦 Executando o projeto
+## 📦 Instalação
 
 Para executar o projeto, siga os passos abaixo:
 
@@ -27,7 +27,8 @@ cd AuroraLibrary
 bun install
 ```
 
-4. Execute o projeto
+## 🚀 Como executar o servidor
+
 ```bash
 bun dev
 ```
